@@ -12,21 +12,22 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/accounts')
+@app.route('/accounts/login')
 def get_accounts():
     # student_accounts = conn.execute(text("select * from student_accounts")).all()
     # teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
     # print(student_accounts)
     # print(teacher_accounts)
-    return render_template('signup_login_page.html')
+    return render_template('login_page.html')
                         #    , student_accounts=student_accounts, teacher_accounts=teacher_accounts)
 
 
-@app.route('/accounts/accounts_students')
+@app.route('/accounts/register')
 def get_accounts_student():
-    student_accounts = conn.execute(text("select * from student_accounts")).all()
-    print(student_accounts)
-    return render_template('accounts_students.html', student_accounts=student_accounts)
+    # student_accounts = conn.execute(text("select * from student_accounts")).all()
+    # print(student_accounts)
+    return render_template('register_page.html')
+                        #    , student_accounts=student_accounts)
 
 
 @app.route('/accounts/accounts_teachers')
