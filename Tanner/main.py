@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
-conn_str = "mysql://root:Tpob4711$@localhost/schooltests"
+conn_str = "mysql://root:jtdStudent2023@localhost/scammazon"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -21,13 +21,31 @@ def get_accounts():
     return render_template('login_page.html')
                         #    , student_accounts=student_accounts, teacher_accounts=teacher_accounts)
 
-
-@app.route('/accounts/register')
-def get_accounts_student():
-    # student_accounts = conn.execute(text("select * from student_accounts")).all()
-    # print(student_accounts)
+@app.route('/accounts/register', methods=['GET'])
+def create_account():
     return render_template('register_page.html')
-                        #    , student_accounts=student_accounts)
+
+@app.route('/accounts/register', methods=['POST'])
+def post_create_account():
+    try:
+        conn.execute(
+            text("INSERT INTO account (`first_name`, `last_name`, `email`, `username`, `password`, `type`) values (:first_name, :last_name, :email, :username, :password, :type)"),
+            request.form
+        )
+        conn.commit()
+        return render_template('register_page.html', error=None, success="Data inserted successfully!")
+
+    except Exception as e:
+        error = e.orig.args[1]
+        print(error)
+        return render_template('register_page.html', error=error, success=None)
+
+# @app.route('/accounts/register')
+# def get_accounts_student():
+#     # student_accounts = conn.execute(text("select * from student_accounts")).all()
+#     # print(student_accounts)
+#     return render_template('register_page.html')
+#                         #    , student_accounts=student_accounts)
 
 
 @app.route('/accounts/accounts_teachers')
