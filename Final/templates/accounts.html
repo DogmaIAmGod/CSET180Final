@@ -1,0 +1,89 @@
+<style>
+    .flex-box {
+        display: flex;
+        font-size: 16px;
+        flex-wrap: wrap;
+        width: 1140px;
+        margin: auto;
+    }
+
+    .boat {
+        min-width: 200px;
+        padding: 10px;
+    }
+
+    .pagination_bar {
+        display: flex;
+        justify-content: flex-end;
+        width: 1140px;
+        margin: auto;
+    }
+    .pagination_button {
+        font-size: 20px;
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 2px 2px 4px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        width: 30px;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding-top: 20px;
+        align-items: center;
+    }
+</style>
+
+{% extends "base.html" %}
+{% block body %}
+<div class="column">
+    <div style="text-align: centered">
+        <a href="accounts/accounts_teachers">Just Teachers</a>
+        <a href="accounts/accounts_students">Just Students</a>
+    </div>
+    <div class="column">
+        <div class="flex-box">
+            {% for student in student_accounts %}
+                <div class="boat">
+                    <ul>
+                        <li>Student ID: {{ student['id'] }}</li>
+                        <ul>
+                            <li>First Name: {{ student['first_name'] }}</li>
+                            <li>Last Name: {{ student['last_name'] }}</li>
+                        </ul>
+                    </ul>
+                </div>
+            {% endfor %}
+
+            {% if student_accounts | length < 1 %}
+                <h1>No data available</h1>
+            {% endif %}
+        </div>
+
+        <div class="flex-box">
+        {% for teacher in teacher_accounts %}
+            <div class="boat">
+                <ul>
+                    <li>Teacher ID: {{ teacher['id'] }}</li>
+                    <ul>
+                        <li>First Name: {{ teacher['first_name'] }}</li>
+                        <li>Last Name: {{ teacher['last_name'] }}</li>
+                    </ul>
+                </ul>
+            </div>
+        {% endfor %}
+
+        {% if teacher_accounts | length < 1 %}
+            <h1>No data available</h1>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

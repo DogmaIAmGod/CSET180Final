@@ -1,0 +1,67 @@
+<style>
+    .body{
+        margin: auto;
+    }
+    .input_field {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .input_submit {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .input_submit:hover {
+      background-color: #45a049;
+    }
+</style>
+
+{% extends "base.html" %}
+{% block body %}
+
+    <div class="body">
+        <div class="column">
+            <div style="text-align: center">
+                <a href="/test_delete">Test Delete</a>
+                <a href="/test_create">Test Create</a>
+            </div>
+        </div>
+        {% if error %}
+            <h2>{{ error }}</h2>
+        {% endif %}
+
+        {% if success %}
+            <h2>{{ success }}</h2>
+        {% endif %}
+        <h1>Test Edit</h1>
+        <p style="text-align:center;"><i>Input index of test to edit</i></p>
+        <form action="/test_edit" method="POST">
+            <select name="id" class="input_field">
+                <option value="">Select an ID</option>
+                 {% for teacher in quiz_questions %}
+                    <option value="{{ teacher['id'] }}">{{ teacher['id'] }}</option>
+                {% endfor %}
+            </select>
+                <select name="questions" id="questions" class="input_field">
+                    <option value="question1">Question 1</option>
+                    <option value="question2">Question 2</option>
+                    <option value="question3">Question 3</option>
+                </select>
+            <input type="text" name="edit_text" placeholder="Enter new question" class="input_field">
+            <input type="submit" value="Submit" class="input_submit">
+        </form>
+    </div>
+
+{% endblock %}
