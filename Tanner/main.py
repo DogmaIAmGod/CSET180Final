@@ -33,7 +33,7 @@ def post_create_account():
             request.form
         )
         conn.commit()
-        return render_template('register_page.html', error=None, success="Data inserted successfully!")
+        return render_template('register_page.html', error=None, success="Account Created!")
 
     except Exception as e:
         error = e.orig.args[1]
