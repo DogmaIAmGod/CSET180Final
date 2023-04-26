@@ -30,11 +30,12 @@ def get_accounts_student():
                         #    , student_accounts=student_accounts)
 
 
-@app.route('/accounts/accounts_teachers')
+@app.route('/products')
 def get_accounts_teacher():
-    teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
-    print(teacher_accounts)
-    return render_template('accounts_teachers.html', teacher_accounts=teacher_accounts)
+    # teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
+    # print(teacher_accounts)
+    return render_template('lorenzo_product_page.html')
+                        #    ,teacher_accounts=teacher_accounts)
 
 
 @app.route('/quiz_questions/')
