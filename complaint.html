@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="complaint.js">
+    <link rel="stylesheet" href="complaint.css">
+    <title>Customer Complaint</title>
+</head>
+<body>
+    <h1 style="text-align:center">Customer Complaint</h1>
+    <form>
+      <p>
+        <label for="complaintID">Complaint ID:</label>
+        <input type="text" id="complaintID" name="complaintID" readonly>
+      </p>
+      <p>
+        <label for="reviewID">Review ID:</label>
+        <input type="text" id="reviewID" name="reviewID" readonly>
+      </p>
+      <p>
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="In Progress">In Progress</option>
+        </select>
+      </p>
+      <p>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+      </p>
+      <p>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" rows="5" cols="30" required></textarea>
+      </p>
+      <p>
+        <label for="complaintType">Complaint Type:</label>
+        <select id="complaintType" name="complaintType">
+          <option value="Product">Product</option>
+          <option value="Service">Service</option>
+          <option value="Delivery">Delivery</option>
+        </select>
+      </p>
+      <p>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+      </p>
+      <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </p>
+      <p>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </p>
+      <p style="text-align:center">
+        <button type="submit" onclick="submitForm()">Submit</button>
+      </p>
+    </form>
+</body>
+</html>
