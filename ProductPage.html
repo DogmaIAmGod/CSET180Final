@@ -51,7 +51,9 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="container">
     <div class="row">
       <div class="col-md-6">
         <div id="product-carousel2" class="carousel slide" data-ride="carousel">
@@ -91,8 +93,9 @@
         </div>
       </div>
     </div>
+  </div>
 
-
+  <div class="container">
     <div class="row">
         <div class="col-md-6">
           <div id="product-carousel3" class="carousel slide" data-ride="carousel">
@@ -122,8 +125,8 @@
             </a>
           </div>
         </div>
-        <div class="col-md-6 product-details">
-          <h1>Product Name</h1>
+        <div class="col-md-6 product-details product">
+          <h1>Product Name3</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
           <p>Price: $10.00</p>
           <div class="product-actions">
@@ -132,7 +135,63 @@
           </div>
         </div>
       </div>
+  </div>
 
 
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="cart">
+        <h2>Cart</h2>
+        <ul class="cart-items">
+        </ul>
+        <p>Total: $<span class="cart-total">0.00</span></p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    const cartButton = document.querySelector('.cart-button');
+    const cart = document.querySelector('.cart');
+    const cartItems = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    let itemsInCart = [];
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let totalPrice = 0;
+      for (let i = 0; i < itemsInCart.length; i++) {
+        const item = itemsInCart[i];
+        const li = document.createElement('li');
+        li.innerText = `${item.product} - $${item.price}`;
+        cartItems.appendChild(li);
+        totalPrice += item.price;
+      }
+      cartTotal.innerText = totalPrice.toFixed(2);
+    }
+
+    function addToCart(event) {
+      const button = event.target;
+      const price = parseFloat(button.dataset.price);
+      const product = button.dataset.product;
+      const item = { price, product };
+      itemsInCart.push(item);
+      updateCart();
+    }
+
+    for (let i = 0; i < addToCartButtons.length; i++) {
+      addToCartButtons[i].addEventListener('click', addToCart);
+    }
+  </script>
+
+
+    
+  </body>
+</html>
     
