@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
@@ -14,31 +14,32 @@ def index():
 
 @app.route('/accounts/login', methods=['GET'])
 def get_accounts():
-    return render_template('login_page.html')
+    person_information = conn.execute(text("SELECT * FROM account"))
+    return render_template('login_page.html', information=person_information)
 
 #Work on with Daffy
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
-    try:
-        auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username")).one_or_none()
-        if auth[0] == 'Yes':
-            return render_template('')
-    except Exception as e:
-        error = 'Invalid Login'
-        print(error)
-        return render_template('login_page.html', error=error, success=None)
+    auth = conn.execute(text(
+        "SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
+
+    print(auth[0])
+    if auth[0] == 'Yes':
+        person_id = conn.execute(text("SELECT account_id FROM account WHERE password = :password"))
+        return redirect("/account/information/'{{ person_id }}'", code=302)
+    else:
+        return render_template('login_page.html', error=None, success="Invalid Login")
+
 
 @app.route('/accounts/register', methods=['GET'])
 def create_account():
+    conn.execute(text("SELECT * FROM account")).all()
     return render_template('register_page.html')
 
 @app.route('/accounts/register', methods=['POST'])
 def post_create_account():
     try:
-        conn.execute(
-            text("INSERT INTO account (`first_name`, `last_name`, `email`, `username`, `password`, `type`) values (:first_name, :last_name, :email, :username, :password, :type)"),
-            request.form
-        )
+        conn.execute(text("INSERT INTO account (`first_name`, `last_name`, `email`, `username`, `password`, `type`) values (:first_name, :last_name, :email, :username, :password, :type)"),request.form)
         conn.commit()
         return render_template('register_page.html', error=None, success="Account Created!")
 
@@ -47,17 +48,22 @@ def post_create_account():
         print(error)
         return render_template('register_page.html', error=error, success=None)
 
-# @app.route('/accounts/register')
+@app.route('/accounts/information', methods=['GET'])
+def get_information():
+    return "Fuckyou"
+
+
+        # @app.route('/accounts/register')
 # def get_accounts_student():
 #     # student_accounts = conn.execute(text("select * from student_accounts")).all()
 #     # print(student_accounts)
 #     return render_template('register_page.html')
 #                         #    , student_accounts=student_accounts)
 
-@app.route('/products', methods=['GET'])
-def products_page():
-    products = conn.execute(text("select * from products"))
-    return render_template('ProductPage.html', products=products)
+# @app.route('/products', methods=['GET'])
+# def products_page():
+#     products = conn.execute(text("select * from products"))
+#     return render_template('ProductPage.html', products=products)
 
 
 @app.route('/accounts/accounts_teachers')
