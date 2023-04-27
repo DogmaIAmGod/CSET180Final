@@ -19,17 +19,28 @@ def get_accounts():
 #Work on with Daffy
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
-    error = "Invalid Login"
-    user_login = request.form.get("username")
-    password = request.form.get("password")
-    usernames = [username[0] for username in conn.execute(text("SELECT username FROM account")).all()]
-    print(user_login)
-    print(usernames)
-    print(password)
-    if user_login not in usernames:
+    try:
+        auth = conn.execute(
+            text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"),
+            request.form
+        ).one_or_none()
+        if auth[0] == 'Yes':
+            return render_template('')
+    except Exception as e:
+        error = e.orig.args[1]
+        print(error)
         return render_template('login_page.html', error=error, success=None)
-    else:
-        return render_template('login_page.html', error=None, success="Login Successful")
+    # error = "Invalid Login"
+    # user_login = request.form.get("username")
+    # password = request.form.get("password")
+    # usernames = [username[0] for username in conn.execute(text("SELECT username FROM account")).all()]
+    # print(user_login)
+    # print(usernames)
+    # print(password)
+    # if user_login not in usernames:
+    #     return render_template('login_page.html', error=error, success=None)
+    # else:
+    #     return render_template('login_page.html', error=None, success="Login Successful")
 
 
 
