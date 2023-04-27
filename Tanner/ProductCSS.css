@@ -1,0 +1,13 @@
+body {
+    padding: 55px;
+}
+
+
+.carousel {
+    padding-bottom: 5%;
+}
+
+.btn:hover {
+    background-color: greenyellow;
+    border-radius: 45%;
+}
