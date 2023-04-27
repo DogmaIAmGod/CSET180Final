@@ -14,18 +14,22 @@ def index():
 
 @app.route('/accounts/login', methods=['GET'])
 def get_accounts():
-    accounts = conn.execute(text("SELECT email, username, password FROM account")).all()
-    print(accounts)
-    return render_template('login_page.html', accounts=accounts)
+    return render_template('login_page.html')
 
 #Work on with Daffy
-# @app.route('/accounts/login', methods=['POST'])
-# def post_get_accounts():
-#     user_login = request.form.get("username")
-#     password = request.form.get("password")
-#     print(user_login)
-#     try:
-#         if user_login in accounts:
+@app.route('/accounts/login', methods=['POST'])
+def post_get_accounts():
+    error = "Invalid Login"
+    user_login = request.form.get("username")
+    password = request.form.get("password")
+    usernames = [username[0] for username in conn.execute(text("SELECT username FROM account")).all()]
+    print(user_login)
+    print(usernames)
+    print(password)
+    if user_login not in usernames:
+        return render_template('login_page.html', error=error, success=None)
+    else:
+        return render_template('login_page.html', error=None, success="Login Successful")
 
 
 
