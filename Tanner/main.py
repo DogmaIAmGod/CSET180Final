@@ -24,22 +24,9 @@ def post_get_accounts():
         if auth[0] == 'Yes':
             return render_template('')
     except Exception as e:
-        error = 'Invalid Login '
+        error = 'Invalid Login'
         print(error)
         return render_template('login_page.html', error=error, success=None)
-    # error = "Invalid Login"
-    # user_login = request.form.get("username")
-    # password = request.form.get("password")
-    # usernames = [username[0] for username in conn.execute(text("SELECT username FROM account")).all()]
-    # print(user_login)
-    # print(usernames)
-    # print(password)
-    # if user_login not in usernames:
-    #     return render_template('login_page.html', error=error, success=None)
-    # else:
-    #     return render_template('login_page.html', error=None, success="Login Successful")
-
-
 
 @app.route('/accounts/register', methods=['GET'])
 def create_account():
