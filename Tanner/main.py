@@ -12,14 +12,22 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/accounts/login')
+@app.route('/accounts/login', methods=['GET'])
 def get_accounts():
-    # student_accounts = conn.execute(text("select * from student_accounts")).all()
-    # teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
-    # print(student_accounts)
-    # print(teacher_accounts)
-    return render_template('login_page.html')
-                        #    , student_accounts=student_accounts, teacher_accounts=teacher_accounts)
+    accounts = conn.execute(text("SELECT email, username, password FROM account")).all()
+    print(accounts)
+    return render_template('login_page.html', accounts=accounts)
+
+#Work on with Daffy
+# @app.route('/accounts/login', methods=['POST'])
+# def post_get_accounts():
+#     user_login = request.form.get("username")
+#     password = request.form.get("password")
+#     print(user_login)
+#     try:
+#         if user_login in accounts:
+
+
 
 @app.route('/accounts/register', methods=['GET'])
 def create_account():
@@ -46,6 +54,11 @@ def post_create_account():
 #     # print(student_accounts)
 #     return render_template('register_page.html')
 #                         #    , student_accounts=student_accounts)
+
+@app.route('/products', methods=['GET'])
+def products_page():
+    products = conn.execute(text("select * from products"))
+    return render_template('ProductPage.html', products=products)
 
 
 @app.route('/accounts/accounts_teachers')
