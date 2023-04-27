@@ -20,14 +20,11 @@ def get_accounts():
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
     try:
-        auth = conn.execute(
-            text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"),
-            request.form
-        ).one_or_none()
+        auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username")).one_or_none()
         if auth[0] == 'Yes':
             return render_template('')
     except Exception as e:
-        error = e.orig.args[1]
+        error = 'Invalid Login '
         print(error)
         return render_template('login_page.html', error=error, success=None)
     # error = "Invalid Login"
