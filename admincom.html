@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="complaint.css">
+    <title> Admin Customer Complaint</title>
+</head>
+<body>
+    <h1 style="text-align:center">Customer Complaint</h1>
+    <form>
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="Open">Pending</option>
+          <option value="Closed">Rejected</option>
+          <option value="In Progress">accepted</option>
+          <option value="In Progress">Processing</option>
+          <option value="In Progress">Completed</option>
+        </select>
+      </p>
+      <p>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+      </p>
+      <p>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" rows="5" cols="30" required></textarea>
+      </p>
+      <p>
+        <label for="complaintType">Complaint Type:</label>
+        <select id="complaintType" name="complaintType">
+          <option value="Product">Refund</option>
+          <option value="Service">Return</option>
+          <option value="Delivery">Warranty</option>
+        </select>
+      </p>
+      <p>
+        <label for="currentDate">Date:</label>
+        <input type="date" id="currentDate" name="date">
+      </p>
+      <p style="text-align:center">
+        <button type="submit" onclick="submitForm()">Submit</button>
+      </p>
+    </form>
+    <script>
+      document.getElementById("currentDate").valueAsDate = new Date();
+    </script>
+</body>
+</html>
