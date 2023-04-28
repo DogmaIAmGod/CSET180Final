@@ -1,40 +1,67 @@
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f2f2f2;
+/* Global styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  form {
+    max-width: 500px;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-}
-
-label {
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
     display: block;
     margin-bottom: 10px;
-}
-
-select,
-input[type="text"],
-textarea,
-input[type="date"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  textarea {
     width: 100%;
-}
-
-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  select,
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    margin: 20px auto 0;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: #fff;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover {
+    transition: background-color 0.3s;
+  }
+  
+  button[type="submit"]:hover {
     background-color: #3e8e41;
-}
+  }
+  
+  /* Media queries for responsive design */
+  @media (max-width: 600px) {
+    form {
+      max-width: 100%;
+      padding: 10px;
+    }
+  }
+  
