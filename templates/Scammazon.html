@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+    <header>
+        <h1>Scammazon</h1>
+    </header>
+    <!-- Cart -->
+<!--    <section>-->
+<!--        <h3 class="titles">Cart</h3>-->
+<!--        <div class="cart">-->
+<!--            <p class="product">Cart ID<span class="price">1</span></p>-->
+<!--            <p class="product">Product ID<span class="price">1000</span></p>-->
+<!--            <p class="product">Account ID<span class="price">3</span></p>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!-- Account details -->
+    <section>
+        {% for use in user %}
+            <h3 class="titles">Account</h3>
+            <div class="info">
+                <div>
+                    <label>Account ID: {{ use['id'] }}</label>
+                </div>
+                <div>
+                    <label>Name: {{ use['name'] }}</label>
+                </div>
+                <div>
+                    <label>Email: {{ use['email'] }} </label>
+                </div>
+                <div>
+                    <label>Username: {{ use['username'] }}</label>
+                </div>
+                <div>
+                    <label>Password: {{ use['password'] }}</label>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+<!--    <footer>-->
+<!--        <p class="legal">Scammazon</p>-->
+<!--        <p class="copyright">2023</p>-->
+<!--    </footer>-->
+{% endblock %}

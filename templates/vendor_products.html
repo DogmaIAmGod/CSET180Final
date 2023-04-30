@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block body %}
+    <header>
+        <h1>Scammazon</h1>
+        <style>
+            img {width:100px; height:100px;}
+            label {text-transform:capitalize}
+        </style>
+    </header>
+    <!-- Cart -->
+<!--    <section>-->
+<!--        <h3 class="titles">Cart</h3>-->
+<!--        <div class="cart">-->
+<!--            <p class="product">Cart ID<span class="price">1</span></p>-->
+<!--            <p class="product">Product ID<span class="price">1000</span></p>-->
+<!--            <p class="product">Account ID<span class="price">3</span></p>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!-- Account details -->
+    <section>
+        <h3 class="titles">Vendor Products</h3>
+        {% for use in user %}
+            <div class="info">
+                <div class="float" style="float:left; margin-left: 30px">
+                    <div>
+                        <label>Product ID: {{ use['product_id'] }}</label>
+                    </div>
+                    <div>
+                        <label>Title: {{ use['title'] }}</label>
+                    </div>
+                    <div>
+                        <label>Description: {{ use['description'] }} </label>
+                    </div>
+                    <div>
+                        <label>Image: <img src="{{ use['image'] }}"></label>
+                    </div>
+                    <div>
+                        <label>Active Warranty: {{ use['active_warranty'] }}</label>
+                    </div>
+                    <div>
+                        <label>Color: {{ use['color'] }}</label>
+                    </div>
+                    <div>
+                        <label>Size: {{ use['size'] }}</label>
+                    </div>
+                    <div>
+                        <label>Price: ${{ use['price'] }}</label>
+                    </div>
+                    <ul>
+                    <li>
+                        <a href="/product_edit/{{ use['product_id'] }}" class="button">Edit Product</a>
+                    </li>
+                    <li>
+                        <a href="/product_delete/{{ use['product_id'] }}" class="button">Delete Product</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        {% endfor %}
+        {% if user | length < 1 %}
+                <h1>No data available</h1>
+            {% endif %}
+    </section>
+<!--    <footer>-->
+<!--        <p class="legal">Scammazon</p>-->
+<!--        <p class="copyright">2023</p>-->
+<!--    </footer>-->
+{% endblock %}
