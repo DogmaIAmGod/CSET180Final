@@ -27,7 +27,7 @@ def post_get_accounts():
         type = str(type)
         print(type)
         if type == "[('vendor',)]":
-            cookie = redirect("/accounts/information/", code=301)
+            cookie = redirect("/vendor", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
     else:
@@ -51,13 +51,22 @@ def post_create_account():
         print(error)
         return render_template('register_page.html', error=error, success=None)
 
-@app.route('/accounts/information/', methods=['GET'])
+@app.route('/accounts/information', methods=['GET'])
 def get_information():
     user = request.cookies.get('logged_in')
     user=str(user)
     user_info = conn.execute(text(f"SELECT account_id as id, concat(first_name, ' ', last_name) as name, email, username, password from account where username = '{user}'")).all()
     print(user_info)
     return render_template('Scammazon.html', user=user_info)
+
+@app.route('/vendor', methods=['GET'])
+def vendor_information():
+    user = request.cookies.get('logged_in')
+    user = str(user)
+    vendor_info = conn.execute(text(
+        f"SELECT products.* FROM products JOIN account USING(account_id) WHERE account.username = '{user}'")).all()
+    print(vendor_info)
+    return render_template('vendor_products.html', user=vendor_info)
 
 
         # @app.route('/accounts/register')

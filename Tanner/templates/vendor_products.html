@@ -14,23 +14,24 @@
 <!--    </section>-->
     <!-- Account details -->
     <section>
+        <h3 class="titles">Vendor Products</h3>
         {% for use in user %}
-            <h3 class="titles">Account</h3>
+            <h3 class="titles">Account Information</h3>
             <div class="info">
                 <div>
-                    <label>Account ID: {{ use['id'] }}</label>
+                    <label>Account ID: {{ use['product_id'] }}</label>
                 </div>
                 <div>
-                    <label>Name: {{ use['name'] }}</label>
+                    <label>Title: {{ use['title'] }}</label>
                 </div>
                 <div>
-                    <label>Email: {{ use['email'] }} </label>
+                    <label>Description: {{ use['description'] }} </label>
                 </div>
                 <div>
-                    <label>Username: {{ use['username'] }}</label>
+                    <label>Image: {{ use['image'] }}</label>
                 </div>
                 <div>
-                    <label>Password: {{ use['password'] }}</label>
+                    <label>Active Warranty: {{ use['active_warranty'] }}</label>
                 </div>
             </div>
         {% endfor %}
