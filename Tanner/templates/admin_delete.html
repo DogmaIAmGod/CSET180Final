@@ -3,7 +3,7 @@
         margin: auto;
     }
     .input_field {
-      width: 100%;
+      width: 50%;
       padding: 12px 20px;
       margin: 8px 0;
       display: inline-block;
@@ -13,7 +13,7 @@
     }
 
     .input_submit {
-      width: 100%;
+      width: 50%;
       background-color: #4CAF50;
       color: white;
       padding: 14px 20px;
@@ -26,18 +26,14 @@
     .input_submit:hover {
       background-color: #45a049;
     }
+    img {width:100px; height:100px;}
+    label {text-transform:capitalize}
 </style>
 
 {% extends "base.html" %}
 {% block body %}
 
     <div class="body">
-        <div class="column">
-            <div style="text-align: center">
-                <a href="/test_create">Test Create</a>
-            <a href="/test_edit">Test Edit</a>
-            </div>
-        </div>
         {% if error %}
             <h2>{{ error }}</h2>
         {% endif %}
@@ -46,15 +42,25 @@
             <h2>{{ success }}</h2>
         {% endif %}
         <h1>Test Deletion</h1>
-        <p style="text-align:center;"><i>Input index of test to delete</i></p>
-        <form action="/test_delete" method="POST">
-            <select name="id" class="input_field">
-                <option value="">Select an ID</option>
-                 {% for teacher in quiz_questions %}
-                    <option value="{{ teacher['id'] }}">{{ teacher['id'] }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Submit" class="input_submit">
+        <p><i>Confirm for Deletion</i></p>
+        <form action="/product_delete" method="POST">
+            {% for use in product_info %}
+            <input type="text" name="product_id" value="{{ use['product_id'] }}" style="display:none"/>
+            <div class="info">
+                <div class="float" style="float:left; margin-left: 30px">
+                    <div>
+                        <label >Title: {{ use['title'] }}</label><br>
+                        <label>Description: {{ use['description'] }} </label><br>
+                        <label>Image: <img src="{{ use['image'] }}"></label><br>
+                        <label>Active Warranty: {{ use['active_warranty'] }}</label><br>
+                        <label>Color: {{ use['color'] }}</label><br>
+                        <label>Size: {{ use['size'] }}</label><br>
+                        <label>Price: ${{ use['price'] }}</label><br>
+                    </div>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br> <input type="submit" value="Submit For Deletion" class="input_submit">
+        {% endfor %}
         </form>
     </div>
 {% endblock %}

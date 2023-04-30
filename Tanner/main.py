@@ -9,15 +9,13 @@ conn = engine.connect()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
+    # return render_template('index.html')
+    return redirect("/accounts/login", code=301)
 
 @app.route('/accounts/login', methods=['GET'])
 def get_accounts():
-    person_information = conn.execute(text("SELECT * FROM account"))
-    return render_template('login_page.html', information=person_information)
+    return render_template('login_page.html')
 
-#Work on with Daffy
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
     auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
@@ -44,7 +42,8 @@ def post_create_account():
     try:
         conn.execute(text("INSERT INTO account (`first_name`, `last_name`, `email`, `username`, `password`, `type`) values (:first_name, :last_name, :email, :username, :password, :type)"),request.form)
         conn.commit()
-        return render_template('register_page.html', error=None, success="Account Created!")
+        # return render_template('register_page.html', error=None, success="Account Created!")
+        return redirect("/accounts/login", code=301)
 
     except Exception as e:
         error = e.orig.args[1]
@@ -68,8 +67,49 @@ def vendor_information():
     print(vendor_info)
     return render_template('vendor_products.html', user=vendor_info)
 
+@app.route('/product_edit/<id>', methods=['GET'])
+def product_edit(id=0):
+    id=int(id)
+    product_info = conn.execute(text(
+        f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
+    return render_template('admin_edit.html', product_info=product_info)
 
-        # @app.route('/accounts/register')
+@app.route('/product_edit', methods=['POST'])
+def post_product_edit():
+    try:
+        conn.execute(
+            text("UPDATE products SET {} = :info_change WHERE product_id = :product_id".format(request.form.get("type"))),
+            request.form
+        )
+        conn.commit()
+        return redirect("/vendor", code=301)
+
+    except Exception as e:
+        error = e.orig.args[1]
+        print(error)
+        return render_template('admin_edit.html', error=error, success=None)
+
+@app.route('/product_delete/<id>', methods=['GET'])
+def product_delete(id=0):
+    id=int(id)
+    product_info = conn.execute(text(
+        f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
+    return render_template('admin_delete.html', product_info=product_info)
+
+@app.route('/product_delete', methods=['POST'])
+def post_product_delete():
+    try:
+        conn.execute(
+            text("DELETE FROM products WHERE (`product_id` = :product_id)"),request.form)
+        conn.commit()
+        return redirect("/vendor", code=301)
+    except Exception as e:
+        error = e.orig.args[1]
+        print(error)
+        return render_template('admin_delete.html', error=error, success=None)
+
+
+# @app.route('/accounts/register')
 # def get_accounts_student():
 #     # student_accounts = conn.execute(text("select * from student_accounts")).all()
 #     # print(student_accounts)

@@ -3,7 +3,7 @@
         margin: auto;
     }
     .input_field {
-      width: 100%;
+      width: 50%;
       padding: 12px 20px;
       margin: 8px 0;
       display: inline-block;
@@ -13,7 +13,7 @@
     }
 
     .input_submit {
-      width: 100%;
+      width: 50%;
       background-color: #4CAF50;
       color: white;
       padding: 14px 20px;
@@ -26,18 +26,15 @@
     .input_submit:hover {
       background-color: #45a049;
     }
+    img {width:100px; height:100px;}
+    label {text-transform:capitalize}
 </style>
 
 {% extends "base.html" %}
 {% block body %}
 
     <div class="body">
-        <div class="column">
-            <div style="text-align: center">
-                <a href="/test_delete">Test Delete</a>
-                <a href="/test_create">Test Create</a>
-            </div>
-        </div>
+
         {% if error %}
             <h2>{{ error }}</h2>
         {% endif %}
@@ -45,22 +42,42 @@
         {% if success %}
             <h2>{{ success }}</h2>
         {% endif %}
-        <h1>Test Edit</h1>
-        <p style="text-align:center;"><i>Input index of test to edit</i></p>
-        <form action="/test_edit" method="POST">
-            <select name="id" class="input_field">
-                <option value="">Select an ID</option>
-                 {% for teacher in quiz_questions %}
-                    <option value="{{ teacher['id'] }}">{{ teacher['id'] }}</option>
-                {% endfor %}
-            </select>
-                <select name="questions" id="questions" class="input_field">
-                    <option value="question1">Question 1</option>
-                    <option value="question2">Question 2</option>
-                    <option value="question3">Question 3</option>
+        <h1>Product Edit</h1>
+
+        <form action="/product_edit" method="POST">
+                <select name="type" id="type" class="input_field" required>
+                    <option value="" disabled selected>Select the value to edit</option>
+                    <option value="title">Title</option>
+                    <option value="description">Description</option>
+                    <option value="image">Image</option>
+                    <option value="active_warranty">Active Warranty?</option>
+                    <option value="color">Color</option>
+                    <option value="Size">Size</option>
+                    <option value="price">Price</option>
                 </select>
-            <input type="text" name="edit_text" placeholder="Enter new question" class="input_field">
-            <input type="submit" value="Submit" class="input_submit">
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example2cg" class="form-control" style="width:50%" placeholder="Information to Change" name="info_change" required/>
+            </div>
+            {% for use in product_info %}
+            <input type="text" name="product_id" value="{{ use['product_id'] }}" style="display:none"/>
+            <div class="info">
+                <div class="float" style="float:left; margin-left: 30px">
+                    <div>
+<!--                        <label>Product ID: {{ use['product_id'] }}</label><br>-->
+                        <label >Title: {{ use['title'] }}</label><br>
+                        <label>Description: {{ use['description'] }} </label><br>
+                        <label>Image: <img src="{{ use['image'] }}"></label><br>
+                        <label>Active Warranty: {{ use['active_warranty'] }}</label><br>
+                        <label>Color: {{ use['color'] }}</label><br>
+                        <label>Size: {{ use['size'] }}</label><br>
+                        <label>Price: ${{ use['price'] }}</label><br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+           <br><br><br><br><br><br><br><br><br><br><br><br> <input type="submit" value="Submit" class="input_submit">
+
+
         </form>
     </div>
 
