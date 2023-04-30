@@ -1,65 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"> 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scammazon</title>
-    <link rel="stylesheet" href="Scammazon.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
     <header>
         <h1>Scammazon</h1>
     </header>
     <!-- Cart -->
-    <section>
-        <h3 class="titles">Cart</h3>
-        <div class="cart">
-            <p class="product">Cart ID<span class="price">1</span></p>
-            <p class="product">Product ID<span class="price">1000</span></p>
-            <p class="product">Account ID<span class="price">3</span></p>
-        </div>
-    </section>
+<!--    <section>-->
+<!--        <h3 class="titles">Cart</h3>-->
+<!--        <div class="cart">-->
+<!--            <p class="product">Cart ID<span class="price">1</span></p>-->
+<!--            <p class="product">Product ID<span class="price">1000</span></p>-->
+<!--            <p class="product">Account ID<span class="price">3</span></p>-->
+<!--        </div>-->
+<!--    </section>-->
     <!-- Account details -->
     <section>
-        <h3 class="titles">Account</h3>
-        <div class="info">
-            <div>
-                <label>Account ID: {{ information['account_id'] }}</label>
-                <input type="text" placeholder="1">
-            </div>
-            <div>
-                <label>First Name</label>
-                <input type="text" placeholder="James">
-            </div>
-            <div>
-                <label>Last Name</label>
-            <input type="text" placeholder="Douglas">
-            </div>
-            <div>
-                <label>Email</label>
-                <input type="text" placeholder="scammer@scammazon.com">
-            </div>
-            <div>
-                <label>Username</label>
-                <input type="text" placeholder="scamming_your_mum">
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="text" placeholder="password123">
-            </div>
-            <div>
-                <label>Type</label>
-                <input type="text" placeholder="admin">
-            </div>
+        {% for use in user %}
+            <h3 class="titles">Account Information</h3>
             <div class="info">
-                <input class="buttons" type="submit" value="Continue to checkout">
+                <div>
+                    <label>Account ID: {{ use['id'] }}</label>
+                </div>
+                <div>
+                    <label>Name: {{ use['name'] }}</label>
+                </div>
+                <div>
+                    <label>Email: {{ use['email'] }} </label>
+                </div>
+                <div>
+                    <label>Username: {{ use['username'] }}</label>
+                </div>
+                <div>
+                    <label>Password: {{ use['password'] }}</label>
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </section>
-    <footer>
-        <p class="legal">Scammazon</p>
-        <p class="copyright">2023</p>
-    </footer>
-</body>
-</html>
+<!--    <footer>-->
+<!--        <p class="legal">Scammazon</p>-->
+<!--        <p class="copyright">2023</p>-->
+<!--    </footer>-->
+{% endblock %}

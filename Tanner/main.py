@@ -20,13 +20,16 @@ def get_accounts():
 #Work on with Daffy
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
-    auth = conn.execute(text(
-        "SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
-
-    print(auth[0])
+    auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
+    maybe_user = request.form.get("username")
     if auth[0] == 'Yes':
-        person_id = conn.execute(text("SELECT account_id FROM account WHERE password = :password"))
-        return redirect("/account/information/'{{ person_id }}'", code=302)
+        type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
+        type = str(type)
+        print(type)
+        if type == "[('vendor',)]":
+            cookie = redirect("/accounts/information/", code=301)
+            cookie.set_cookie('logged_in', maybe_user)
+            return cookie
     else:
         return render_template('login_page.html', error=None, success="Invalid Login")
 
@@ -48,9 +51,13 @@ def post_create_account():
         print(error)
         return render_template('register_page.html', error=error, success=None)
 
-@app.route('/accounts/information', methods=['GET'])
+@app.route('/accounts/information/', methods=['GET'])
 def get_information():
-    return "Fuckyou"
+    user = request.cookies.get('logged_in')
+    user=str(user)
+    user_info = conn.execute(text(f"SELECT account_id as id, concat(first_name, ' ', last_name) as name, email, username, password from account where username = '{user}'")).all()
+    print(user_info)
+    return render_template('Scammazon.html', user=user_info)
 
 
         # @app.route('/accounts/register')
