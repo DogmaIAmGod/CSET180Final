@@ -10,10 +10,10 @@ body {
   }
   
   form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 0 20px black;
   }
   
@@ -26,8 +26,8 @@ body {
   textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid white;
-    border-radius: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
     resize: vertical;
   }
   
@@ -35,7 +35,7 @@ body {
   input[type="date"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid grey;
+    border: 1px solid black;
     border-radius: 4px;
   }
   
