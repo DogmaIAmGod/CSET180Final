@@ -122,5 +122,9 @@ def post_shopping():
     conn.commit()
     return render_template('ProductPage.html', items=items)
 
+@app.route('/create', methods=['GET'])
+def product_add():
+    return render_template('admin_create.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
