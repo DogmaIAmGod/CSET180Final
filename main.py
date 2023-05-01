@@ -39,8 +39,7 @@ def get_accounts_teacher():
 
 
 @app.route('/review')
-# @app.route('/quiz_questions/<page>')
-def get_boats(page=1):
+def get_boats():
     # page = int(page)
     # per_page = 10
     # quiz_questions = conn.execute(text(f"SELECT quiz_questions.id, question1, question2, question3, concat(first_name, ' ', last_name) AS teacher_name FROM quiz_questions JOIN teacher_accounts ON teacher_id=teacher_accounts.id LIMIT {per_page} OFFSET {(page - 1) * per_page}")).all()
