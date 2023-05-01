@@ -18,7 +18,6 @@ def get_accounts():
 def post_get_accounts():
     auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
     maybe_user = request.form.get("username")
-    print(maybe_user)
     if auth[0] == 'Yes':
         type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
         type = type[0][0]
@@ -64,9 +63,7 @@ def get_information():
 def vendor_information():
     user = request.cookies.get('logged_in')
     user = str(user)
-    vendor_info = conn.execute(text(
-        f"SELECT products.* FROM products JOIN account USING(account_id) WHERE account.username = '{user}'")).all()
-    print(vendor_info)
+    vendor_info = conn.execute(text(f"SELECT products.* FROM products JOIN account USING(account_id) WHERE account.username = '{user}'")).all()
     return render_template('vendor_products.html', user=vendor_info)
 
 @app.route('/admin', methods=['GET'])
