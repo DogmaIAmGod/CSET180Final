@@ -48,9 +48,9 @@ def get_boats():
                         #    , boats=quiz_questions, page=page, per_page=per_page)
 
 
-@app.route('/teacher_create', methods=['GET'])
+@app.route('/vendor_products')
 def create_get_request_teacher():
-    return render_template('teacher_create.html')
+    return render_template('vendor_products.html')
 
 
 @app.route('/teacher_create', methods=['POST'])
