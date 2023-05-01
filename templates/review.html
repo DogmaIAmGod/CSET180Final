@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block body %}
 <body>
-    <h1>Scamazon Product Review</h1>
-    <form>
+    
+<form>
+<section class="vh-100 bg-image">
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+<div class="container h-50">
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+<div class="card" style="border-radius: 15px;">
+<div class="card-body p-5">
+
+        <h2>Scamazon Product Review</h2>
         <div class="form-group">
             <label for="rating">Rating:</label>
             <select id="rating" name="rating" required>
@@ -26,7 +35,17 @@
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
         </div>
-        <button type="submit">Submit Review</button>
-    </form>
+        <div class="d-flex justify-content-center">
+        <button type="button"
+            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Submit review</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</form>
 </body>
 {% endblock %}
