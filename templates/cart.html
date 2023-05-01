@@ -22,7 +22,7 @@
 <body>
 
 
-    {% for item in items %}
+    {% for car in cart %}
     <form action="/store" method="POST">
       <div class="container">
         <div class="row">
@@ -30,27 +30,26 @@
             <div class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="{{ item['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
+                  <img src="{{ car['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-3 product-details">
-            <input type="text" name="product_id" value="{{ item['product_id'] }}" style="display:none">
-            <h1>{{ item['title']}}</h1>
-            <p>{{ item['description'] }}</p>
-            <p>Color: {{ item['color'] }}</p>
-            <p>Size: {{ item['size'] }}</p>
-            <p>Price: ${{ item['price'] }}</p>
+            <input type="text" name="product_id" value="{{ car['product_id'] }}" style="display:none">
+            <h1>{{ car['title']}}</h1>
+            <p>{{ car['description'] }}</p>
+            <p>Color: {{ car['color'] }}</p>
+            <p>Size: {{ car['size'] }}</p>
+            <p>Price: ${{ car['price'] }}</p>
             <div class="product-actions">
-              <input type="submit" value="Add to Cart" class="input_submit">
             </div>
           </div>
         </div>
       </div>
         </form>
     {% endfor %}
-    <input type="submit" value="Go to Cart" class="input_submit">
+    <a href="/store"><button class="input_submit">Go to Store</button></a>
 
 
 
