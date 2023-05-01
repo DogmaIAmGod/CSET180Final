@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="./ProductCSS.css">
+</head>
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
+<body>
+
+
+    {% for item in items %}
+    <form action="/store" method="POST">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{{ item['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 product-details">
+            <input type="text" name="product_id" value="{{ item['product_id'] }}" style="display:none">
+            <h1>{{ item['title']}}</h1>
+            <p>{{ item['description'] }}</p>
+            <p>Color: {{ item['color'] }}</p>
+            <p>Size: {{ item['size'] }}</p>
+            <p>Price: ${{ item['price'] }}</p>
+            <div class="product-actions">
+              <input type="submit" value="Add to Cart" class="input_submit">
+            </div>
+          </div>
+        </div>
+      </div>
+        </form>
+    {% endfor %}
+    <input type="submit" value="Go to Cart" class="input_submit">
+
+
+
+
+
+
+  <script>
+    const cartButton = document.querySelector('.cart-button');
+    const cart = document.querySelector('.cart');
+    const cartItems = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    var holdnumber = 0;
+    function
+
+    let itemsInCart = [];
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let totalPrice = 0;
+      for (let i = 0; i < itemsInCart.length; i++) {
+        const item = itemsInCart[i];
+        const li = document.createElement('li');
+        li.innerText = `${item.product} - $${item.price}`;
+        cartItems.appendChild(li);
+        totalPrice += item.price;
+      }
+      cartTotal.innerText = totalPrice.toFixed(2);
+    }
+
+    function addToCart(event) {
+      const button = event.target;
+      const price = parseFloat(button.dataset.price);
+      const product = button.dataset.product;
+      const item = { price, product };
+      itemsInCart.push(item);
+      updateCart();
+    }
+
+    for (let i = 0; i < addToCartButtons.length; i++) {
+      addToCartButtons[i].addEventListener('click', addToCart);
+    }
+  </script>
+  </body>
+</html>
+    

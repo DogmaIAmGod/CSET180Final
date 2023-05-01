@@ -136,6 +136,15 @@ def post_add():
     conn.commit()
     return redirect("/vendor", code=301)
 
+@app.route('/cart', methods=['GET'])
+def product_add():
+    user = request.cookies.get('logged_in')
+    user = str(user)
+    person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
+    person_id = person[0][0]
+    cart = conn.execute(text(f"SELECT title, description, image, color, size, quantity, price from products where "))
+    return render_template('cart.html')
+
 
 
 if __name__ == '__main__':
