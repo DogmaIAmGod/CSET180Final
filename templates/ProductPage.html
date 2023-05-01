@@ -43,14 +43,6 @@
             <p>Price: ${{ item['price'] }}</p>
             <div class="product-actions">
               <input type="submit" value="Add to Cart" class="input_submit">
-              {% if error %}
-              <h2>{{ error }}</h2>
-              {% endif %}
-
-              {% if success %}
-              <h2>{{ success }}</h2>
-              {% endif %}
-<!--              <button class="add-to-cart" data-price="{{ item['price'] }}">Add to Cart</button>-->
             </div>
           </div>
         </div>

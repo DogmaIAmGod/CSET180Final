@@ -22,7 +22,6 @@ def post_get_accounts():
     if auth[0] == 'Yes':
         type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
         type = type[0][0]
-        print(type)
         if type == "vendor":
             cookie = redirect("/vendor", code=301)
             cookie.set_cookie('logged_in', maybe_user)
@@ -59,7 +58,6 @@ def get_information():
     user = request.cookies.get('logged_in')
     user=str(user)
     user_info = conn.execute(text(f"SELECT account_id as id, concat(first_name, ' ', last_name) as name, email, username, password from account where username = '{user}'")).all()
-    print(user_info)
     return render_template('Scammazon.html', user=user_info)
 
 @app.route('/vendor', methods=['GET'])
@@ -79,17 +77,13 @@ def admin_information():
 @app.route('/product_edit/<id>', methods=['GET'])
 def product_edit(id=0):
     id=int(id)
-    product_info = conn.execute(text(
-        f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
+    product_info = conn.execute(text(f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
     return render_template('admin_edit.html', product_info=product_info)
 
 @app.route('/product_edit', methods=['POST'])
 def post_product_edit():
     try:
-        conn.execute(
-            text("UPDATE products SET {} = :info_change WHERE product_id = :product_id".format(request.form.get("type"))),
-            request.form
-        )
+        conn.execute(text("UPDATE products SET {} = :info_change WHERE product_id = :product_id".format(request.form.get("type"))), request.form)
         conn.commit()
         return redirect("/vendor", code=301)
     except Exception as e:
@@ -100,15 +94,13 @@ def post_product_edit():
 @app.route('/product_delete/<id>', methods=['GET'])
 def product_delete(id=0):
     id=int(id)
-    product_info = conn.execute(text(
-        f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
+    product_info = conn.execute(text(f"SELECT product_id, title, description, image, active_warranty, color, size, quantity, price from products where product_id = '{id}';")).all()
     return render_template('admin_delete.html', product_info=product_info)
 
 @app.route('/product_delete', methods=['POST'])
 def post_product_delete():
     try:
-        conn.execute(
-            text("DELETE FROM products WHERE (`product_id` = :product_id)"),request.form)
+        conn.execute(text("DELETE FROM products WHERE (`product_id` = :product_id)"),request.form)
         conn.commit()
         return redirect("/vendor", code=301)
     except Exception as e:
@@ -129,14 +121,9 @@ def post_shopping():
     person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
     person_id = person[0][0]
     items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
-    try:
-        conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
-        conn.commit()
-        return render_template('ProductPage.html', items=items, error=None, success="Added to Cart")
-    except Exception as e:
-        error = e.orig.args[1]
-        print(error)
-        return render_template('ProductPage.html', items=items, error=error, success=None)
+    conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
+    conn.commit()
+    return render_template('ProductPage.html', items=items)
 
 if __name__ == '__main__':
     app.run(debug=True)
