@@ -198,6 +198,10 @@ conn = engine.connect()
 def index():
     return redirect("/accounts/login", code=301)
 
+@app.route('/home')
+def home():
+    return render_template('index.html')
+
 @app.route('/accounts/login', methods=['GET'])
 def get_accounts():
     return render_template('login_page.html')
