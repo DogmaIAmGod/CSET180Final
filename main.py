@@ -126,5 +126,17 @@ def post_shopping():
 def product_add():
     return render_template('admin_create.html')
 
+@app.route('/create', methods=['POST'])
+def post_add():
+    user = request.cookies.get('logged_in')
+    user = str(user)
+    person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
+    person_id = person[0][0]
+    conn.execute(text(f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES ('{person_id}', :title, :description, :image, :color, :size, :quantity, :price)"), request.form)
+    conn.commit()
+    return redirect("/vendor", code=301)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

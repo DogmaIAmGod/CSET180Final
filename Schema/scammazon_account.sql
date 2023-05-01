@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -31,7 +33,7 @@ CREATE TABLE `account` (
   `password` longtext NOT NULL,
   `type` varchar(45) NOT NULL DEFAULT 'customer',
   PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +42,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'James','Douglas','scammer@scammazon.com','scamming_your_mum','password123','admin'),(2,'Frank','Furder','hotdog@gmail.com','BigManLikesHotdogs','password1234','vendor'),(3,'Thomas','Lucas','RegularGuy@regularites.net','NothingAbnormal','specialpassword123','customer'),(4,'Justin','Thompson','test@test.com','test123','password123','vendor'),(30,'Linus','Peterson','nono@nono.com','t123','p123','customer'),(31,'Sarah','Pottomus','te@te.com','te123','pa123','admin'),(32,'Justin','Bullock','Fre@gmail.com','come_for_scams','loveyoulots','customer');
+INSERT INTO `account` VALUES (1,'James','Douglas','scammer@scammazon.com','scamming_your_mum','password123','admin'),(2,'Frank','Furder','hotdog@gmail.com','BigManLikesHotdogs','password1234','vendor'),(3,'Thomas','Lucas','RegularGuy@regularites.net','NothingAbnormal','specialpassword123','customer'),(4,'Justin','Thompson','test@test.com','test123','password123','vendor'),(30,'Linus','Peterson','nono@nono.com','t123','p123','customer'),(31,'Sarah','Pottomus','te@te.com','te123','pa123','admin'),(32,'Justin','Bullock','Fre@gmail.com','come_for_scams','loveyoulots','customer'),(33,'Jackson','Yamada','nope@nope.com','tes123','pas123','vendor');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 12:37:19
+-- Dump completed on 2023-05-01 14:21:11

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -31,7 +33,7 @@ CREATE TABLE `cart` (
   KEY `cart_product_idx` (`product_id`),
   CONSTRAINT `cart_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
   CONSTRAINT `cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +42,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,1000,3),(2,1000,3),(3,1003,30),(5,1000,30);
+INSERT INTO `cart` VALUES (1,1000,3),(2,1000,3),(3,1003,30),(5,1000,30),(6,1000,31),(7,1000,31),(8,1006,31);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 12:37:19
+-- Dump completed on 2023-05-01 14:21:11

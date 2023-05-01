@@ -21,8 +21,9 @@
 </style>
 <body>
 
-  <form action="/store" method="POST">
+
     {% for item in items %}
+    <form action="/store" method="POST">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
@@ -47,9 +48,10 @@
           </div>
         </div>
       </div>
+        </form>
     {% endfor %}
     <input type="submit" value="Go to Cart" class="input_submit">
-  </form>
+
 
 
 
