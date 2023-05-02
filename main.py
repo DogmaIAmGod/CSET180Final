@@ -139,7 +139,7 @@ def post_add():
 
 @app.route('/create_admin', methods=['GET'])
 def adminadd():
-    vendors = conn.execute(text("SELECT concat(first_name,' ',last_name) as name from account where type = 'vendor'")).all()
+    vendors = conn.execute(text("SELECT account_id, concat(first_name,' ',last_name) as name from account where type = 'vendor'")).all()
     print(vendors)
     return render_template('admin_create.html', vendors=vendors)
 

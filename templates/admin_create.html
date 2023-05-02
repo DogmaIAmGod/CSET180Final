@@ -37,7 +37,7 @@
             <select name="type" id="type" class="input_field" required>
                 <option value="" disabled selected>Select the value to edit</option>
                 {% for vendor in vendors %}
-                    <option value="{{ vendor['name'] }}">{{ vendor['name'] }}</option>
+                    <option value="{{ vendor['account_id'] }}">{{ vendor['name'] }}</option>
                 {% endfor %}
                 </select>
             <input type="text" name="title" placeholder="Title" class="input_field" required>
