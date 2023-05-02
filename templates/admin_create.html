@@ -31,31 +31,16 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="body">
-        <div class="column">
-            <div style="text-align:center">
-                <a href="/test_delete">Test Delete</a>
-                <a href="/test_edit">Test Edit</a>
-            </div>
-        </div>
-        {% if error %}
-            <h2>{{ error }}</h2>
-        {% endif %}
-
-        {% if success %}
-            <h2>{{ success }}</h2>
-        {% endif %}
-        <h1>Test Creation</h1>
-        <p style="text-align:center;"><i>Input open-ended questions</i></p>
-        <form action="/test_create" method="POST">
-            <select name="teacher_id" class="input_field">
-                <option value="">Select a teacher</option>
-                 {% for teacher in teacher_accounts %}
-                    <option value="{{ teacher['id'] }}">{{ teacher['name'] }}</option>
-                {% endfor %}
-            </select>
-            <input type="text" name="question1" placeholder="Question 1" class="input_field">
-            <input type="text" name="question2" placeholder="Question 2" class="input_field">
-            <input type="text" name="question3" placeholder="Question 3" class="input_field">
+        <h1>Product Creation</h1>
+        <p style="text-align:center;"><i>Input information for new product</i></p>
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Title" class="input_field">
+            <input type="text" name="description" placeholder="Description" class="input_field">
+            <input type="text" name="image" placeholder="Link to Image" class="input_field">
+            <input type="text" name="color" placeholder="Color" class="input_field">
+            <input type="text" name="size" placeholder="Size" class="input_field">
+            <input type="text" name="quantity" placeholder="Quantity" class="input_field">
+            <input type="text" name="price" placeholder="Price w/o '$'" class="input_field">
             <input type="submit" value="Submit" class="input_submit">
         </form>
     </div>
