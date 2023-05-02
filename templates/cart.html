@@ -49,7 +49,9 @@
         </div>
       </div>
     </form>
-    <p>Total:</p>
+    {% endfor %}
+    {% for to in total %}
+    <p>Total: ${{ to['total'] }}</p>
     {% endfor %}
     <a href="/store"><button>Go to Store</button></a>
 
