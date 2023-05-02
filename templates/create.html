@@ -32,17 +32,11 @@
 {% block body %}
     <div class="body">
         <h1>Product Creation</h1>
-        <p style="text-align:center;"><i>Input information for a vendor's new product</i></p>
-        <form action="/create_admin" method="POST">
-            <select name="type" id="type" class="input_field" required>
-                <option value="" disabled selected>Select the value to edit</option>
-                {% for vendor in vendors %}
-                    <option value="{{ vendor['name'] }}">{{ vendor['name'] }}</option>
-                {% endfor %}
-                </select>
-            <input type="text" name="title" placeholder="Title" class="input_field" required>
-            <input type="text" name="description" placeholder="Description" class="input_field" required>
-            <input type="text" name="image" placeholder="Link to Image" class="input_field" required>
+        <p style="text-align:center;"><i>Input information for new product</i></p>
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Title" class="input_field">
+            <input type="text" name="description" placeholder="Description" class="input_field">
+            <input type="text" name="image" placeholder="Link to Image" class="input_field">
             <select name="color" class="input_field" required>
                 <option value="" disabled selected>Color</option>
                 <option value="red">Red</option>
@@ -59,8 +53,8 @@
                 <option value="large">Large</option>
                 <option value="extra large">Extra Large</option>
             </select>
-            <input type="text" name="quantity" placeholder="Quantity" class="input_field" required>
-            <input type="text" name="price" placeholder="Price w/o '$'" class="input_field" required>
+            <input type="text" name="quantity" placeholder="Quantity" class="input_field">
+            <input type="text" name="price" placeholder="Price w/o '$'" class="input_field">
             <input type="submit" value="Submit" class="input_submit">
         </form>
     </div>

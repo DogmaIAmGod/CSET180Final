@@ -124,8 +124,8 @@ def post_shopping():
     return render_template('Product.html', items=items)
 
 @app.route('/create', methods=['GET'])
-def product_add():
-    return render_template('admin_create.html')
+def add():
+    return render_template('create.html')
 
 @app.route('/create', methods=['POST'])
 def post_add():
@@ -136,6 +136,12 @@ def post_add():
     conn.execute(text(f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES ('{person_id}', :title, :description, :image, :color, :size, :quantity, :price)"), request.form)
     conn.commit()
     return redirect("/vendor", code=301)
+
+@app.route('/create_admin', methods=['GET'])
+def adminadd():
+    vendors = conn.execute(text("SELECT concat(first_name,' ',last_name) as name from account where type = 'vendor'")).all()
+    print(vendors)
+    return render_template('admin_create.html', vendors=vendors)
 
 @app.route('/cart', methods=['GET'])
 def cart():
