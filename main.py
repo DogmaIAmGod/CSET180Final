@@ -16,8 +16,9 @@ def get_accounts():
 
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
-    auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
+    auth = conn.execute(text("SELECT CASE WHEN EXISTS (SELECT 1 FROM account WHERE username = :username AND (password = :password OR email = :password))THEN 'Yes'ELSE 'No' END"), request.form).one_or_none()
     maybe_user = request.form.get("username")
+    print("Auth: ", auth[0])
     if auth[0] == 'Yes':
         type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
         type = type[0][0]
