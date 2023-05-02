@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   KEY `cart_product_idx` (`product_id`),
   CONSTRAINT `cart_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
   CONSTRAINT `cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,1000,3),(2,1000,3);
+INSERT INTO `cart` VALUES (1,1000,3),(2,1000,3),(3,1003,30),(5,1000,30),(6,1000,31),(7,1000,31),(8,1006,31);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-25 15:30:07
+-- Dump completed on 2023-05-01 14:26:15
