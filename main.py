@@ -108,7 +108,7 @@ def post_product_delete():
 @app.route('/store', methods=['GET'])
 def shopping():
     items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
-    return render_template('ProductPage.html', items=items)
+    return render_template('Product.html', items=items)
 
 @app.route('/store', methods=['POST'])
 def post_shopping():
@@ -120,7 +120,7 @@ def post_shopping():
     items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
     conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
     conn.commit()
-    return render_template('ProductPage.html', items=items)
+    return render_template('Product.html', items=items)
 
 @app.route('/create', methods=['GET'])
 def product_add():
