@@ -142,10 +142,27 @@ def cart():
     user = str(user)
     person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
     person_id = person[0][0]
-    cart = conn.execute(text(f"SELECT title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
+    cart = conn.execute(text(f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
     return render_template('cart.html', cart=cart)
 
+@app.route('/cart/delete/<id>', methods=['GET'])
+def delete_cart(id=0):
+    id=int(id)
+    print("id ", id)
+    product_info = conn.execute(text(f"SELECT product_id, title, description, image, color, size, price from products where product_id = '{id}';")).all()
+    return render_template('cart_delete.html', product_info=product_info)
 
+@app.route('/cart/delete', methods=['POST'])
+def post_delete_cart():
+    user = str(request.cookies.get('logged_in'))
+    person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
+    person_id = person[0][0]
+    pro_id = request.form.get("product_id")
+    cart_id = conn.execute(text(f"SELECT cart_id from cart where product_id = {pro_id} AND account_id = {person_id}")).all()
+    cart_id = cart_id[0][0]
+    conn.execute(text(f"DELETE FROM cart WHERE (cart_id = '{cart_id}')"), request.form)
+    conn.commit()
+    return redirect("/cart", code=301)
 
 if __name__ == '__main__':
     app.run(debug=True)

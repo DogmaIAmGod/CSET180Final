@@ -43,11 +43,13 @@
             <p>Size: {{ car['size'] }}</p>
             <p>Price: ${{ car['price'] }}</p>
             <div class="product-actions">
+              <a href="/cart/delete/{{ car['product_id'] }}" class="button">Delete Product</a>
             </div>
           </div>
         </div>
       </div>
     </form>
+    <p>Total:</p>
     {% endfor %}
     <a href="/store"><button>Go to Store</button></a>
 
