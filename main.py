@@ -69,7 +69,7 @@ def vendor_information():
 
 @app.route('/admin', methods=['GET'])
 def admin_information():
-    admin_info = conn.execute(text("SELECT products.* FROM products")).all()
+    admin_info = conn.execute(text("SELECT products.*, concat(first_name,' ',last_name) name FROM products join account using(account_id)")).all()
     return render_template('admin_products.html', user=admin_info)
 
 @app.route('/product_edit/<id>', methods=['GET'])
@@ -133,7 +133,10 @@ def post_add():
     user = str(user)
     person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
     person_id = person[0][0]
-    conn.execute(text(f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES ('{person_id}', :title, :description, :image, :color, :size, :quantity, :price)"), request.form)
+    conn.execute(text(
+        f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) "
+        f"VALUES ('{person_id}', :title, :description, :image, :color, :size, :quantity, :price)"
+    ), request.form)
     conn.commit()
     return redirect("/vendor", code=301)
 
@@ -142,6 +145,14 @@ def adminadd():
     vendors = conn.execute(text("SELECT account_id, concat(first_name,' ',last_name) as name from account where type = 'vendor'")).all()
     print(vendors)
     return render_template('admin_create.html', vendors=vendors)
+
+@app.route('/create_admin', methods=['POST'])
+def post_adminadd():
+    conn.execute(text(
+        f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES (:vendor, :title, :description, :image, :color, :size, :quantity, :price)"
+    ), request.form)
+    conn.commit()
+    return redirect("/admin", code=301)
 
 @app.route('/cart', methods=['GET'])
 def cart():

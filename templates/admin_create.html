@@ -34,7 +34,7 @@
         <h1>Product Creation</h1>
         <p style="text-align:center;"><i>Input information for a vendor's new product</i></p>
         <form action="/create_admin" method="POST">
-            <select name="type" id="type" class="input_field" required>
+            <select name="vendor" id="type" class="input_field" required>
                 <option value="" disabled selected>Select the value to edit</option>
                 {% for vendor in vendors %}
                     <option value="{{ vendor['account_id'] }}">{{ vendor['name'] }}</option>
