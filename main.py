@@ -27,7 +27,7 @@ def post_get_accounts():
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         elif type == "customer":
-            cookie = redirect("/accounts/information", code=301)
+            cookie = redirect("/landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         else:
@@ -52,6 +52,10 @@ def post_create_account():
         error = e.orig.args[1]
         print(error)
         return render_template('register_page.html', error=error, success=None)
+
+@app.route('/landing', methods=['GET'])
+def landing_page():
+    return render_template('landing_page.html')
 
 @app.route('/accounts/information', methods=['GET'])
 def get_information():
@@ -163,6 +167,11 @@ def cart():
     cart = conn.execute(text(f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
     total = conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}"))
     return render_template('cart.html', cart=cart, total=total)
+
+@app.route('/cart', methods=['POST'])
+def post_cart():
+
+    return render_template('cart.html')
 
 @app.route('/cart/delete/<id>', methods=['GET'])
 def delete_cart(id=0):
