@@ -57,6 +57,14 @@ def post_create_account():
 def landing_page():
     return render_template('landing_page.html')
 
+@app.route('/admin_landing', methods=['GET'])
+def admin_landing_page():
+    return render_template('admin_landing_page.html')
+
+@app.route('/vendor_landing', methods=['GET'])
+def vendor_landing_page():
+    return render_template('vendor_landing_page.html')
+
 @app.route('/accounts/information', methods=['GET'])
 def get_information():
     user = request.cookies.get('logged_in')
