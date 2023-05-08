@@ -23,7 +23,7 @@ def post_get_accounts():
         type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
         type = type[0][0]
         if type == "vendor":
-            cookie = redirect("/vendor", code=301)
+            cookie = redirect("/vendor_landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         elif type == "customer":
@@ -31,7 +31,7 @@ def post_get_accounts():
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         else:
-            cookie = redirect("/admin", code=301)
+            cookie = redirect("/admin_landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
     else:
