@@ -20,8 +20,7 @@
   }
 </style>
 <body>
-
-
+              <h1 style="text-decoration: underline">THANK YOU FOR YOUR ORDER</h1>
     {% for order in orders %}
       <div class="container">
         <div class="row">
@@ -32,64 +31,12 @@
     {% endfor %}
     <h5>Items:</h5>
     {% for item in items %}
-
     <p>${{ item[0] }} - {{ item[1] }}</p>
     {% endfor %}
-              </div>
+
+          </div>
         </div>
       </div>
-<!--    {% for to in total %}-->
-<!--    <p>Total: ${{ to['total'] }}</p>-->
-<!--    {% endfor %}-->
-<!--    <a href="/cart"><button>Go to Store</button></a>-->
-<!--    <form action="/cart" method="POST">-->
-<!--    <input type="submit" value="Place Order">-->
-<!--    </form>-->
-<!--    <a href="/order"><button>Place Order</button></a>-->
-
-
-
-
-
-
-  <script>
-    const cartButton = document.querySelector('.cart-button');
-    const cart = document.querySelector('.cart');
-    const cartItems = document.querySelector('.cart-items');
-    const cartTotal = document.querySelector('.cart-total');
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-    var holdnumber = 0;
-    function
-
-    let itemsInCart = [];
-
-    function updateCart() {
-      cartItems.innerHTML = '';
-      let totalPrice = 0;
-      for (let i = 0; i < itemsInCart.length; i++) {
-        const item = itemsInCart[i];
-        const li = document.createElement('li');
-        li.innerText = `${item.product} - $${item.price}`;
-        cartItems.appendChild(li);
-        totalPrice += item.price;
-      }
-      cartTotal.innerText = totalPrice.toFixed(2);
-    }
-
-    function addToCart(event) {
-      const button = event.target;
-      const price = parseFloat(button.dataset.price);
-      const product = button.dataset.product;
-      const item = { price, product };
-      itemsInCart.push(item);
-      updateCart();
-    }
-
-    for (let i = 0; i < addToCartButtons.length; i++) {
-      addToCartButtons[i].addEventListener('click', addToCart);
-    }
-  </script>
   </body>
 </html>
     

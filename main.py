@@ -167,8 +167,7 @@ def post_cart():
     order_list = []
     for i in range(len(order)):
         order_list.append(order[i][0])
-    tDate = date.today()
-    conn.execute(text(f"INSERT INTO orders (`account_id`, `order_date`, `items`, `total`) VALUES ('{person_id}', '{tDate}', '{order_list}', {total})"))
+    conn.execute(text(f"INSERT INTO orders (`account_id`, `order_date`, `items`, `total`) VALUES ('{person_id}', '{date.today()}', '{order_list}', {total})"))
     conn.commit()
     return render_template('orders.html')
 
@@ -194,7 +193,6 @@ def orders():
     orders = conn.execute(text(f"SELECT order_status, order_date, total FROM orders where account_id = {person_id} ORDER BY order_id DESC LIMIT 1")).all()
     items = eval(conn.execute(text(f"SELECT items FROM orders ORDER by order_id DESC LIMIT 1")).all()[0][0])
     item_name = []
-    item_price = []
     num = 0
     for i in items:
         item_name.append([
@@ -202,7 +200,7 @@ def orders():
             conn.execute(text(f"SELECT price, concat(size,' ',title) as item from products where product_id = '{i}'")).all()[num][1]])
         num += 0
     print(item_name)
-    return render_template('orders.html', orders=orders, items=item_name, price=item_price)
+    return render_template('orders.html', orders=orders, items=item_name)
 
 
 if __name__ == '__main__':
