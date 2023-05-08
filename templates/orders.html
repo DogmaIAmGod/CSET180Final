@@ -22,41 +22,29 @@
 <body>
 
 
-    {% for car in cart %}
-<!--    <form action="/store" method="POST">-->
+    {% for order in orders %}
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-            <div class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="{{ car['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="col-md-3 product-details">
-            <input type="text" name="product_id" value="{{ car['product_id'] }}" style="display:none">
-            <h1>{{ car['title']}}</h1>
-            <p>{{ car['description'] }}</p>
-            <p>Color: {{ car['color'] }}</p>
-            <p>Size: {{ car['size'] }}</p>
-            <p>Price: ${{ car['price'] }}</p>
-            <div class="product-actions">
-              <a href="/cart/delete/{{ car['product_id'] }}" class="button">Delete Product</a>
-            </div>
-          </div>
+            <p>Order Status: {{ order['order_status']}}</p>
+            <p>Date of Order: {{ order['order_date'] }}</p>
+            <p>Total: ${{ order['total'] }}</p>
+    {% endfor %}
+    <h5>Items:</h5>
+    {% for item in items %}
+
+    <p>${{ item[0] }} - {{ item[1] }}</p>
+    {% endfor %}
+              </div>
         </div>
       </div>
+<!--    {% for to in total %}-->
+<!--    <p>Total: ${{ to['total'] }}</p>-->
+<!--    {% endfor %}-->
+<!--    <a href="/cart"><button>Go to Store</button></a>-->
+<!--    <form action="/cart" method="POST">-->
+<!--    <input type="submit" value="Place Order">-->
 <!--    </form>-->
-    {% endfor %}
-    {% for to in total %}
-    <p>Total: ${{ to['total'] }}</p>
-    {% endfor %}
-    <a href="/cart"><button>Go to Store</button></a>
-    <form action="/cart" method="POST">
-    <input type="submit" value="Place Order">
-    </form>
 <!--    <a href="/order"><button>Place Order</button></a>-->
 
 
