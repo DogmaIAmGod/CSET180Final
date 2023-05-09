@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -26,16 +24,16 @@ DROP TABLE IF EXISTS `orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
   `account_id` int NOT NULL,
   `order_status` enum('pending','confirmed','handed to delivery partner','shipper') NOT NULL DEFAULT 'pending',
-  `order_date` date NOT NULL,
-  PRIMARY KEY (`order_id`,`product_id`,`account_id`),
-  KEY `orders_products_idx` (`product_id`),
+  `order_date` varchar(20) NOT NULL,
+  `items` longtext NOT NULL,
+  `text` longtext NOT NULL,
+  `total` double NOT NULL,
+  PRIMARY KEY (`order_id`,`account_id`),
   KEY `orders_accounts_idx` (`account_id`),
-  CONSTRAINT `orders_accounts` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
-  CONSTRAINT `orders_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `orders_accounts` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5011 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +42,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (5000,30,'pending','2023-08-05','[1007]','Medium Socks that are Purple',0),(5001,30,'pending','2023-08-05','[1003, 1000]','Large Blue Jeans, Small Flabby Pants',412.17),(5010,30,'pending','2023-05-09','[1003, 1000, 1006]','Large Blue Jeans, Small Flabby Pants, Small Yellow Tee',849.75);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 14:26:16
+-- Dump completed on 2023-05-09 12:22:37

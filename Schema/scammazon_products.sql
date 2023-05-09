@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -38,7 +36,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`product_id`),
   KEY `vendor_id_idx` (`account_id`),
   CONSTRAINT `vendor_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1007 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +45,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1000,2,'Flabby Pants','Pants with Bell Bottoms','https://i.imgur.com/czhTk1g.jpg','No','red','small',200,205.55),(1001,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','small',500,206.62),(1002,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','medium',500,206.62),(1003,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','large',500,206.62),(1004,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','extra large',500,306.72),(1006,33,'Yellow Tee','T-Shirt that is Yellow','https://i.imgur.com/2QmMQcw.jpeg','No','yellow','small',600,437.58);
+INSERT INTO `products` VALUES (1000,2,'Flabby Pants','Pants with Bell Bottoms','https://i.imgur.com/czhTk1g.jpg','No','red','small',200,205.55),(1001,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','small',500,206.62),(1002,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','medium',500,206.62),(1003,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','large',500,206.62),(1004,4,'Blue Jeans','Jeans that are blue','https://i.imgur.com/SRoFpMp.jpeg','No','blue','extra large',500,306.72),(1006,33,'Yellow Tee','T-Shirt that is Yellow','https://i.imgur.com/2QmMQcw.jpeg','No','yellow','small',600,437.58),(1007,2,'Purple Socks','Socks that are Purple','https://i.imgur.com/G0ahHaJ.jpeg','No','purple','medium',1000,458.69);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 14:26:15
+-- Dump completed on 2023-05-09 12:22:36
