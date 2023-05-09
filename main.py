@@ -11,7 +11,7 @@ conn = engine.connect()
 def index():
     return redirect("/accounts/login", code=301)
 
-@app.route('/accounts/login', methods=['GET'])
+@app.route('/accounts/login')
 def get_accounts():
     return render_template('login_page.html')
 
@@ -57,11 +57,11 @@ def post_create_account():
 def landing_page():
     return render_template('landing_page.html')
 
-@app.route('/admin_landing', methods=['GET'])
+@app.route('/admin_landing')
 def admin_landing_page():
     return render_template('admin_landing_page.html')
 
-@app.route('/vendor_landing', methods=['GET'])
+@app.route('/vendor_landing')
 def vendor_landing_page():
     return render_template('vendor_landing_page.html')
 
@@ -130,7 +130,7 @@ def post_shopping():
     conn.commit()
     return render_template('Product.html', items=items)
 
-@app.route('/create', methods=['GET'])
+@app.route('/create')
 def add():
     return render_template('create.html')
 
@@ -164,16 +164,13 @@ def post_cart():
     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     total = float(conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}")).all()[0][0])
     order = conn.execute(text(f"SELECT product_id FROM cart where account_id = {person_id}")).all()
-
     order_list = []
     for i in range(len(order)):
         order_list.append(order[i][0])
-
     item_name = []
     for i in order_list:
         item_name.append(conn.execute(text(f"SELECT CONCAT(size,' ',title) from products where product_id = {i}")).all()[0][0].title())
     new_string = ', '.join(item_name)
-
     conn.execute(text(f"INSERT INTO orders (`account_id`, `order_date`, `items`, `text`, `total`) VALUES ('{person_id}', '{date.today()}', '{order_list}', '{new_string}', {total})"))
     conn.commit()
     return redirect("/order", code=301)
@@ -181,7 +178,6 @@ def post_cart():
 @app.route('/cart/delete/<id>', methods=['GET'])
 def delete_cart(id=0):
     id=int(id)
-    print("id ", id)
     product_info = conn.execute(text(f"SELECT product_id, title, description, image, color, size, price from products where product_id = '{id}';")).all()
     return render_template('cart_delete.html', product_info=product_info)
 
@@ -220,16 +216,18 @@ def admin_reviews():
     orders = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders")).all()
     return render_template('admin_review_check.html', orders=orders)
 
+@app.route('/admin_review_edit', methods=['GET'])
 @app.route('/admin_review_edit/<id>', methods=['GET'])
 def admin_reviews_edit(id=0):
     number = int(id)
+    print("number ", number)
     order_edit = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders WHERE order_id = {number}")).all()
     return render_template('admin_review_edit.html', orders=order_edit)
 
-@app.route('/admin_review_edit/', methods=['POST'])
+@app.route('/admin_review_edit', methods=['POST'])
 def post_admin_reviews_edit():
-    # id = request.form.get("order_id")
     conn.execute(text(f'UPDATE orders SET order_status = :status WHERE `order_id` = :order_id'), request.form)
+    conn.commit()
     return redirect('/admin_review', code=301)
 
 if __name__ == '__main__':
