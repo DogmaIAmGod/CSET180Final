@@ -20,9 +20,21 @@
   }
 </style>
 <body>
-<div class="row">
+<div>
+    <form action="/admin_review_edit" method="POST">
+        <select id="Status" name="status" required>
+            <option value="">Select a Status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="handed to delivery partner">Handed to Delivery Partner</option>
+            <option value="shipped">Shipped</option>
+        </select>
+        <div>
+            <input type="submit" value="Change Status" class="btn btn-success btn-lg">
+        </div>
+        <div class="row">
     {% for order in orders %}
-
+    <input type="text" name="order_id" value="{{ order['order_id'] }}" style="display:none">
         <div class="col-sm-4 ">
           <div class="product-details">
             <p>Order Status: {{ order['order_status']}}</p>
@@ -33,6 +45,8 @@
         </div>
     {% endfor %}
  </div>
+    </form>
+</div>
 <!--    <h5>Items:</h5>-->
 <!--    {% for item in items %}-->
 <!--    <p>${{ item[0] }} - {{ item[1] }}</p>-->

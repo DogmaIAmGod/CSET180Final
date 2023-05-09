@@ -212,21 +212,25 @@ def orders():
 @app.route('/review', methods=['GET'])
 def reviews():
     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    orders = conn.execute(text(f"SELECT order_status, order_date, total FROM orders where account_id = {person_id}")).all()
+    orders = conn.execute(text(f"SELECT order_status, order_date, text, total FROM orders where account_id = {person_id}")).all()
+    return render_template('review_check.html', orders=orders)
 
-    items = conn.execute(text(f"SELECT items FROM orders where account_id = {person_id}")).all()
-    new_list = [[int(num) for num in tup[0].strip('[]').split(',')] for tup in items]
-    real_list = []
-    for i in new_list:
-        temp_list = []
-        for j in range(len(i)):
-            h = conn.execute(text(f"SELECT price, concat(size, ' ', title) as item from products where product_id = {i[j]}")).all()[0][1].title()
-            o = conn.execute(text(f"SELECT price, concat(size, ' ', title) as item from products where product_id = {i[j]}")).all()[0][0]
-            temp_list.append([h, o])
-        real_list.append(temp_list)
-    print(real_list)
-    return render_template('review_check.html', orders=orders, items=real_list)
+@app.route('/admin_review', methods=['GET'])
+def admin_reviews():
+    orders = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders")).all()
+    return render_template('admin_review_check.html', orders=orders)
 
+@app.route('/admin_review_edit/<id>', methods=['GET'])
+def admin_reviews_edit(id=0):
+    number = int(id)
+    order_edit = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders WHERE order_id = {number}")).all()
+    return render_template('admin_review_edit.html', orders=order_edit)
+
+@app.route('/admin_review_edit/', methods=['POST'])
+def post_admin_reviews_edit():
+    # id = request.form.get("order_id")
+    conn.execute(text(f'UPDATE orders SET order_status = :status WHERE `order_id` = :order_id'), request.form)
+    return redirect('/admin_review', code=301)
 
 if __name__ == '__main__':
     app.run(debug=True)
