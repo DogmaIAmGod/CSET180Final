@@ -164,9 +164,16 @@ def post_cart():
     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     total = float(conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}")).all()[0][0])
     order = conn.execute(text(f"SELECT product_id FROM cart where account_id = {person_id}")).all()
+    items = eval(conn.execute(text(f"SELECT items FROM orders ORDER by order_id DESC LIMIT 1")).all()[0][0])
+    item_name = []
+    num = 0
+    for i in items:
+        item_name.append(conn.execute(text(f"SELECT price, concat(size,' ',title) as item from products where product_id = '{i}'")).all()[0][0])
+        num += 0
     order_list = []
     for i in range(len(order)):
         order_list.append(order[i][0])
+
     conn.execute(text(f"INSERT INTO orders (`account_id`, `order_date`, `items`, `total`) VALUES ('{person_id}', '{date.today()}', '{order_list}', {total})"))
     conn.commit()
     return render_template('orders.html')
@@ -201,6 +208,23 @@ def orders():
         num += 0
     print(item_name)
     return render_template('orders.html', orders=orders, items=item_name)
+
+@app.route('/review', methods=['GET'])
+def reviews():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    orders = conn.execute(text(f"SELECT order_status, order_date, total FROM orders where account_id = {person_id}")).all()
+    items = conn.execute(text(f"SELECT items FROM orders where account_id = {person_id}")).all()
+    new_list = [[int(num) for num in tup[0].strip('[]').split(',')] for tup in items]
+    real_list = []
+    for i in new_list:
+        temp_list = []
+        for j in range(len(i)):
+            h = conn.execute(text(f"SELECT price, concat(size, ' ', title) as item from products where product_id = {i[j]}")).all()[0][1].title()
+            o = conn.execute(text(f"SELECT price, concat(size, ' ', title) as item from products where product_id = {i[j]}")).all()[0][0]
+            temp_list.append([h, o])
+        real_list.append(temp_list)
+    print(real_list)
+    return render_template('review_check.html', orders=orders, items=real_list)
 
 
 if __name__ == '__main__':
