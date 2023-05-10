@@ -1,306 +1,89 @@
 
 {% extends "base.html" %}
 {% block body %}
-<link rel="stylesheet" href="./product_pageCSS.css">
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
 <body>
 
-    <form>
-  
-      <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-              <div id="product-carousel3" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#product-carousel3" data-slide-to="0" class="active"></li>
-                  <li data-target="#product-carousel3" data-slide-to="1"></li>
-                  <li data-target="#product-carousel3" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="https://via.placeholder.com/600x400" class="d-block w-100" alt="Product Image 1">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://via.placeholder.com/600x400" class="d-block w-100" alt="Product Image 2">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://via.placeholder.com/600x400" class="d-block w-100" alt="Product Image 3">
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#product-carousel3" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel3" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-3 product-details product">
-              <h1>Product Name3</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
-              <p>Price: $10.00</p>
-              <div class="product-actions">
-  
-                <button class="add-to-cart" data-price="10.00" data-product="Product 3">Add to Cart</button>
-  
-              </div>
-            </div>
-          
-            <div class="col-md-3 ">
-              <div class="cart">
-                <h2>Cart</h2>
-                <ul class="cart-items">
-                </ul>
-                <p>Total: $<span class="cart-total">0.00</span></p>
-              </div>
-              
-            </div>
-        
-        
-  
-  
-  
-          </div>
-      </div>
-  
-  
+
+    {% for item in items %}
+    <form action="/store" method="POST">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <div id="product-carousel1" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#product-carousel1" data-slide-to="0" class="active"></li>
-                <li data-target="#product-carousel1" data-slide-to="1"></li>
-                <li data-target="#product-carousel1" data-slide-to="2"></li>
-              </ol>
+            <div class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="./imgs/PJ1/bl1.jpg" class="d-block w-100" alt="Product Image 1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/PJ1/w1.jpg" class="d-block w-100" alt="Product Image 2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/PJ1/p1.jpg" class="d-block w-100" alt="Product Image 3">
+                  <img src="{{ item['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#product-carousel1" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#product-carousel1" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
           </div>
           <div class="col-md-3 product-details">
-            <h1>Product Name</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
-            <p>Price: $1000.00</p>
+            <input type="text" name="product_id" value="{{ item['product_id'] }}" style="display:none">
+            <h1>{{ item['title']}}</h1>
+            <p>{{ item['description'] }}</p>
+            <p>Color: {{ item['color'] }}</p>
+            <p>Size: {{ item['size'] }}</p>
+            <p>Price: ${{ item['price'] }}</p>
             <div class="product-actions">
-              <!-- <a href="#" class="favorite btn btn-sm"><i class="fa fa-heart"></i> Add to Favorites</a>
-              <a href="#" class="add-to-cart btn btn-sm"><i class="fa fa-plus"></i> Add to Cart</a> -->
-  
-              <button class="add-to-cart" data-price="1000.00" data-product="Product 1">Add to Cart</button>
-  
-  
-            </div>
-          </div>
-  
-          <div class="col-md-3">
-            <div id="product-carousel2" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#product-carousel2" data-slide-to="0" class="active"></li>
-                <li data-target="#product-carousel2" data-slide-to="1"></li>
-                <li data-target="#product-carousel2" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="./imgs/PJ2/71-RPyoDuzL._AC_UL1500_.jpg" class="d-block w-100" alt="Product Image 1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/PJ2/714royd9D+L._AC_UL1500_.jpg" class="d-block w-100" alt="Product Image 2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/PJ2/71RNjHIwNyL._AC_UL1500_.jpg" class="d-block w-100" alt="Product Image 3">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#product-carousel2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#product-carousel2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-3 product-details">
-            <h1>Product Name</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
-            <p>Price: $1000.00</p>
-            <div class="product-actions">
-              <!-- <a href="#" class="favorite btn btn-sm"><i class="fa fa-heart"></i> Add to Favorites</a>
-              <a href="#" class="add-to-cart btn btn-sm"><i class="fa fa-plus"></i> Add to Cart</a> -->
-  
-              <button class="add-to-cart" data-price="1000.00" data-product="Product 1">Add to Cart</button>
-  
-  
-            </div>
-          </div>
-  
-  
-        </div>
-      </div>
-  
-  
-  
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <div id="product-carousel3" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#product-carousel3" data-slide-to="0" class="active"></li>
-                <li data-target="#product-carousel3" data-slide-to="1"></li>
-                <li data-target="#product-carousel3" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="./imgs/Christmaspj/3b221e7cd7623e1cf62fc8302e84e0dc.webp" class="d-block w-100" alt="Product Image 1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/Christmaspj/7023256a191cb22afbf86069b5e571c7.webp" class="d-block w-100" alt="Product Image 2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/Christmaspj/e5277e1336212f8b3d88306b3b9684ae.webp" class="d-block w-100" alt="Product Image 3">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#product-carousel3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#product-carousel3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-3 product-details">
-            <h1>Product Name</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
-            <p>Price: $20.00</p>
-            <div class="product-actions">
-      
-              <button class="add-to-cart" data-price="20.00" data-product="Product 2">Add to Cart</button>
-  
-  
-            </div>
-          </div>
-  
-  
-          <div class="col-md-3">
-            <div id="product-carousel4" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#product-carousel4" data-slide-to="0" class="active"></li>
-                <li data-target="#product-carousel4" data-slide-to="1"></li>
-                <li data-target="#product-carousel4" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="./imgs/Athleticpj/3cf33c28af1cf909698f795709c0d939_enhanced.webp" class="d-block w-100" alt="Product Image 1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/Athleticpj/7be9cb927cdda08ed058a1173af7e3e8_enhanced.webp" class="d-block w-100" alt="Product Image 2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./imgs/Athleticpj/d1b9c60cf8b1936f5f5bb6184ba79ae5_enhanced.webp" class="d-block w-100" alt="Product Image 3">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#product-carousel4" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#product-carousel4" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-3 product-details">
-            <h1>Product Name</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nulla eu nibh ultrices facilisis.</p>
-            <p>Price: $20.00</p>
-            <div class="product-actions">
-      
-              <button class="add-to-cart" data-price="20.00" data-product="Product 2">Add to Cart</button>
-  
-  
-            </div>
-          </div>
-  
-  
-  
-        </div>
-      </div>
-  
-      <!-- CART
-        <div class="container">
-          <div class="row">
-            <div class="cart">
-              <h2>Cart</h2>
-              <ul class="cart-items">
-              </ul>
-              <p>Total: $<span class="cart-total">0.00</span></p>
+              <input type="submit" value="Add to Cart" class="input_submit">
             </div>
           </div>
         </div>
-      -->
-    </form>
-  
-  {% endblock %}
-  
-  
-    <script>
-      const cartButton = document.querySelector('.cart-button');
-      const cart = document.querySelector('.cart');
-      const cartItems = document.querySelector('.cart-items');
-      const cartTotal = document.querySelector('.cart-total');
-      const addToCartButtons = document.querySelectorAll('.add-to-cart');
-  
-      let itemsInCart = [];
-  
-      function updateCart() {
-        cartItems.innerHTML = '';
-        let totalPrice = 0;
-        for (let i = 0; i < itemsInCart.length; i++) {
-          const item = itemsInCart[i];
-          const li = document.createElement('li');
-          li.innerText = `${item.product} - $${item.price}`;
-          cartItems.appendChild(li);
-          totalPrice += item.price;
-        }
-        cartTotal.innerText = totalPrice.toFixed(2);
+      </div>
+        </form>
+    {% endfor %}
+    <a href="/cart"><button  class="input_submit">Go to Cart</button></a>
+
+
+
+
+
+
+  <script>
+    const cartButton = document.querySelector('.cart-button');
+    const cart = document.querySelector('.cart');
+    const cartItems = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    var holdnumber = 0;
+    function
+
+    let itemsInCart = [];
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let totalPrice = 0;
+      for (let i = 0; i < itemsInCart.length; i++) {
+        const item = itemsInCart[i];
+        const li = document.createElement('li');
+        li.innerText = `${item.product} - $${item.price}`;
+        cartItems.appendChild(li);
+        totalPrice += item.price;
       }
-  
-      function addToCart(event) {
-        const button = event.target;
-        const price = parseFloat(button.dataset.price);
-        const product = button.dataset.product;
-        const item = { price, product };
-        itemsInCart.push(item);
-        updateCart();
-      }
-  
-      for (let i = 0; i < addToCartButtons.length; i++) {
-        addToCartButtons[i].addEventListener('click', addToCart);
-      }
-    </script>
-  
-  
-      
-    </body>
-  </html>
-      
-  
+      cartTotal.innerText = totalPrice.toFixed(2);
+    }
+
+    function addToCart(event) {
+      const button = event.target;
+      const price = parseFloat(button.dataset.price);
+      const product = button.dataset.product;
+      const item = { price, product };
+      itemsInCart.push(item);
+      updateCart();
+    }
+
+    for (let i = 0; i < addToCartButtons.length; i++) {
+      addToCartButtons[i].addEventListener('click', addToCart);
+    }
+  </script>
+  </body>
