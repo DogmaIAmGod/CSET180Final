@@ -328,7 +328,30 @@ def post_add():
     conn.commit()
     return redirect("/vendor", code=301)
 
+@app.route('/cart', methods=['GET'])
+def cart():
+    # person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    # cart = conn.execute(text(f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
+    # total = conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}"))
+    # return render_template('cart.html', cart=cart, total=total)
+
+# @app.route('/cart', methods=['POST'])
+# def post_cart():
+#     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+#     total = float(conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}")).all()[0][0])
+#     order = conn.execute(text(f"SELECT product_id FROM cart where account_id = {person_id}")).all()
+#     order_list = []
+#     for i in range(len(order)):
+#         order_list.append(order[i][0])
+#     item_name = []
+#     for i in order_list:
+#         item_name.append(conn.execute(text(f"SELECT CONCAT(size,' ',title) from products where product_id = {i}")).all()[0][0].title())
+#     new_string = ', '.join(item_name)
+#     conn.execute(text(f"INSERT INTO orders (`account_id`, `order_date`, `items`, `text`, `total`) VALUES ('{person_id}', '{date.today()}', '{order_list}', '{new_string}', {total})"))
+#     conn.commit()
+#     return redirect("/order", code=301)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+    if __name__ == '__main__':
+        app.run(debug=True)
