@@ -11,10 +11,11 @@
 </head>
 <body class="album py-5 ">
   <div class="container-fluid">
-    <form action="/store" method="POST">
+
       <div class="row">
         {% for item in items %}
-          <div class="col-lg-4 col-md-6 mb-4">
+            <form action="/store" method="POST">
+          <div class="d-flex w-100 p-4 mb-4">
             <div class="card shadow-sm h-100">
               <img src="{{ item['image'] }}" class="card-img-top" alt="Product Image 1" referrerpolicy="no-referrer">
               <div class="card-body">
@@ -32,10 +33,11 @@
               </div>
             </div>
           </div>
+                  </form>
         {% endfor %}
       </div>
-      <input type="submit" value="Go to Cart" class="btn btn-secondary">
-    </form>
+
+    <a href="/cart"><button class="btn btn-secondary">Go to Cart</button></a>
   </div>
   <style>
 

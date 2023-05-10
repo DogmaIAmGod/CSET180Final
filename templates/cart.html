@@ -23,7 +23,7 @@
 
 
     {% for car in cart %}
-    <form action="/store" method="POST">
+<!--    <form action="/store" method="POST">-->
       <div class="container">
         <div class="row">
           <div class="col-md-3">
@@ -48,12 +48,16 @@
           </div>
         </div>
       </div>
-    </form>
+<!--    </form>-->
     {% endfor %}
     {% for to in total %}
     <p>Total: ${{ to['total'] }}</p>
     {% endfor %}
-    <a href="/store"><button>Go to Store</button></a>
+    <a href="/cart"><button>Go to Store</button></a>
+    <form action="/cart" method="POST">
+    <input type="submit" value="Place Order">
+    </form>
+<!--    <a href="/order"><button>Place Order</button></a>-->
 
 
 
