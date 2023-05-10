@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
+<body>
+
+
+    {% for car in cart %}
+<!--    <form action="/store" method="POST">-->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{{ car['image'] }}" class="d-block w-100" alt="Product Image 1" referrerpolicy="no-referrer">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 product-details">
+            <input type="text" name="product_id" value="{{ car['product_id'] }}" style="display:none">
+            <h1>{{ car['title']}}</h1>
+            <p>{{ car['description'] }}</p>
+            <p>Color: {{ car['color'] }}</p>
+            <p>Size: {{ car['size'] }}</p>
+            <p>Price: ${{ car['price'] }}</p>
+            <div class="product-actions">
+              <a href="/cart/delete/{{ car['product_id'] }}" class="button">Delete Product</a>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--    </form>-->
+    {% endfor %}
+    {% for to in total %}
+    <p>Total: ${{ to['total'] }}</p>
+    {% endfor %}
+    <a href="/cart"><button>Go to Store</button></a>
+    <form action="/cart" method="POST">
+    <input type="submit" value="Place Order">
+    </form>
+    {% endblock %}
+<!--    <a href="/order"><button>Place Order</button></a>-->
+
+
+
+
+
+
+  <!-- <script>
+    const cartButton = document.querySelector('.cart-button');
+    const cart = document.querySelector('.cart');
+    const cartItems = document.querySelector('.cart-items');
+    const cartTotal = document.querySelector('.cart-total');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    var holdnumber = 0;
+    function
+
+    let itemsInCart = [];
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let totalPrice = 0;
+      for (let i = 0; i < itemsInCart.length; i++) {
+        const item = itemsInCart[i];
+        const li = document.createElement('li');
+        li.innerText = `${item.product} - $${item.price}`;
+        cartItems.appendChild(li);
+        totalPrice += item.price;
+      }
+      cartTotal.innerText = totalPrice.toFixed(2);
+    }
+
+    function addToCart(event) {
+      const button = event.target;
+      const price = parseFloat(button.dataset.price);
+      const product = button.dataset.product;
+      const item = { price, product };
+      itemsInCart.push(item);
+      updateCart();
+    }
+
+    for (let i = 0; i < addToCartButtons.length; i++) {
+      addToCartButtons[i].addEventListener('click', addToCart);
+    }
+  </script> -->
+  </body>
+</html>
+    
