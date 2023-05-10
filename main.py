@@ -1,196 +1,9 @@
-# from flask import Flask, render_template, request
-# from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
-
-# app = Flask(__name__)
-# conn_str = "mysql://root:Tpob4711$@localhost/scammazon"
-# engine = create_engine(conn_str, echo=True)
-# conn = engine.connect()
-
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-
-# @app.route('/accounts/login')
-# def get_accounts():
-#     # student_accounts = conn.execute(text("select * from student_accounts")).all()
-#     # teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
-#     # print(student_accounts)
-#     # print(teacher_accounts)
-#     return render_template('login_page.html')
-#                         #    , student_accounts=student_accounts, teacher_accounts=teacher_accounts)
-
-
-# @app.route('/accounts/register')
-# def get_accounts_student():
-#     # student_accounts = conn.execute(text("select * from student_accounts")).all()
-#     # print(student_accounts)
-#     return render_template('register_page.html')
-#                         #    , student_accounts=student_accounts)
-
-
-# @app.route('/products')
-# def get_accounts_teacher():
-#     # teacher_accounts = conn.execute(text("select * from teacher_accounts")).all()
-#     # print(teacher_accounts)
-#     return render_template('lorenzo_product_page.html')
-#                         #    ,teacher_accounts=teacher_accounts)
-
-
-# @app.route('/review')
-# def get_boats():
-#     # page = int(page)
-#     # per_page = 10
-#     # quiz_questions = conn.execute(text(f"SELECT quiz_questions.id, question1, question2, question3, concat(first_name, ' ', last_name) AS teacher_name FROM quiz_questions JOIN teacher_accounts ON teacher_id=teacher_accounts.id LIMIT {per_page} OFFSET {(page - 1) * per_page}")).all()
-#     # print(quiz_questions)
-#     return render_template('review.html')
-#                         #    , boats=quiz_questions, page=page, per_page=per_page)
-
-
-# @app.route('/vendor_products')
-# def create_get_request_teacher():
-#     return render_template('vendor_products.html')
-
-
-# @app.route('/teacher_create', methods=['POST'])
-# def create_teacher():
-#     try:
-#         conn.execute(
-#             text("INSERT INTO teacher_accounts (`first_name`, `last_name`) values (:first_name, :last_name)"),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('teacher_create.html', error=None, success="Data inserted successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('teacher_create.html', error=error, success=None)
-
-
-# @app.route('/student_create', methods=['GET'])
-# def create_get_request_student():
-#     return render_template('student_create.html')
-
-
-# @app.route('/student_create', methods=['POST'])
-# def create_student():
-#     try:
-#         conn.execute(
-#             text("INSERT INTO student_accounts (`first_name`, `last_name`) values (:first_name, :last_name)"),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('student_create.html', error=None, success="Data inserted successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('student_create.html', error=error, success=None)
-
-
-# @app.route('/test_create', methods=['GET'])
-# def create_get_request_test():
-#     teacher_accounts = conn.execute(text("select id, concat(first_name, ' ', last_name) as name from teacher_accounts")).all()
-#     return render_template('test_create.html', teacher_accounts=teacher_accounts)
-
-
-# @app.route('/test_create', methods=['POST'])
-# def create_test():
-#     try:
-#         conn.execute(
-#             text("INSERT INTO quiz_questions (`teacher_id`, `question1`, `question2`, `question3`) values (:teacher_id, :question1, :question2, :question3)"),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('test_create.html', error=None, success="Data inserted successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('test_create.html', error=error, success=None)
-
-
-# @app.route('/test_delete', methods=['GET'])
-# def delete_get_request_test():
-#     quiz_questions = conn.execute(
-#         text("select id from quiz_questions")).all()
-#     return render_template('test_delete.html', quiz_questions=quiz_questions)
-
-
-# @app.route('/test_delete', methods=['POST'])
-# def delete_test():
-#     try:
-#         conn.execute(
-#             text("DELETE FROM quiz_questions WHERE (`id` = :id)"),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('test_delete.html', error=None, success="Data deleted successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('test_delete.html', error=error, success=None)
-
-
-# @app.route('/test_edit', methods=['GET'])
-# def edit_get_request_test():
-#     quiz_questions = conn.execute(
-#     text("select id from quiz_questions")).all()
-#     return render_template('test_edit.html', quiz_questions=quiz_questions)
-
-
-# @app.route('/test_edit', methods=['POST'])
-# def edit_test():
-#     try:
-#         conn.execute(
-#             text("UPDATE quiz_questions SET {} = :edit_text WHERE id = :id".format(request.form.get("questions"))),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('test_edit.html', error=None, success="Data updated successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('test_edit.html', error=error, success=None)
-
-
-# @app.route('/test_take/<id>', methods=['GET'])
-# def take_test_request(id = 0):
-#     id = int(id)
-#     student_accounts = conn.execute(
-#     text("select id, concat(first_name, ' ', last_name) as name from student_accounts")).all()
-#     quiz_questions = conn.execute(
-#         text(f"select * from quiz_questions WHERE id = {id}")).all()
-#     return render_template('test_take.html', quiz_questions=quiz_questions, student_accounts=student_accounts)
-
-# @app.route('/test_take', methods=['POST'])
-# def take_test():
-#     try:
-#         conn.execute(
-#             text("INSERT INTO quiz_answers (`questions_id`, `student_id`, `answer1`, `answer2`, `answer3`) values (:questions_id, :student_id, :answer1, :answer2, :answer3)"),
-#             request.form
-#         )
-#         conn.commit()
-#         return render_template('test_take.html', error=None, success="Data inserted successfully!")
-
-#     except Exception as e:
-#         error = e.orig.args[1]
-#         print(error)
-#         return render_template('test_take.html', error=error, success=None)
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 from flask import Flask, render_template, request, redirect
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
+from datetime import date
 
 app = Flask(__name__)
-conn_str = "mysql://root:Tpob4711$@localhost/scammazon"
+conn_str = "mysql://root:jtdStudent2023@localhost/scammazon"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -198,31 +11,27 @@ conn = engine.connect()
 def index():
     return redirect("/accounts/login", code=301)
 
-@app.route('/home')
-def home():
-    return render_template('index.html')
-
-@app.route('/accounts/login', methods=['GET'])
+@app.route('/accounts/login')
 def get_accounts():
     return render_template('login_page.html')
 
 @app.route('/accounts/login', methods=['POST'])
 def post_get_accounts():
-    auth = conn.execute(text("SELECT if(password = :password, 'Yes', 'No') FROM account WHERE username = :username OR email = :username"), request.form).one_or_none()
+    auth = conn.execute(text("SELECT CASE WHEN EXISTS (SELECT 1 FROM account WHERE username = :username AND (password = :password OR email = :password))THEN 'Yes'ELSE 'No' END"), request.form).one_or_none()
     maybe_user = request.form.get("username")
+    print("Auth: ", auth[0])
     if auth[0] == 'Yes':
-        type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()
-        type = type[0][0]
+        type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()[0][0]
         if type == "vendor":
-            cookie = redirect("/vendor", code=301)
+            cookie = redirect("/vendor_landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         elif type == "customer":
-            cookie = redirect("/accounts/information", code=301)
+            cookie = redirect("/landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
         else:
-            cookie = redirect("/admin", code=301)
+            cookie = redirect("/admin_landing", code=301)
             cookie.set_cookie('logged_in', maybe_user)
             return cookie
     else:
@@ -244,23 +53,33 @@ def post_create_account():
         print(error)
         return render_template('register_page.html', error=error, success=None)
 
+@app.route('/landing')
+def landing_page():
+    return render_template('landing_page.html')
+
+@app.route('/admin_landing')
+def admin_landing_page():
+    return render_template('admin_landing_page.html')
+
+@app.route('/vendor_landing')
+def vendor_landing_page():
+    return render_template('vendor_landing_page.html')
+
 @app.route('/accounts/information', methods=['GET'])
 def get_information():
-    user = request.cookies.get('logged_in')
-    user=str(user)
+    user = str(request.cookies.get('logged_in'))
     user_info = conn.execute(text(f"SELECT account_id as id, concat(first_name, ' ', last_name) as name, email, username, password from account where username = '{user}'")).all()
     return render_template('Scammazon.html', user=user_info)
 
 @app.route('/vendor', methods=['GET'])
 def vendor_information():
-    user = request.cookies.get('logged_in')
-    user = str(user)
+    user = str(request.cookies.get('logged_in'))
     vendor_info = conn.execute(text(f"SELECT products.* FROM products JOIN account USING(account_id) WHERE account.username = '{user}'")).all()
     return render_template('vendor_products.html', user=vendor_info)
 
 @app.route('/admin', methods=['GET'])
 def admin_information():
-    admin_info = conn.execute(text("SELECT products.* FROM products")).all()
+    admin_info = conn.execute(text("SELECT products.*, concat(first_name,' ',last_name) name FROM products join account using(account_id)")).all()
     return render_template('admin_products.html', user=admin_info)
 
 @app.route('/product_edit/<id>', methods=['GET'])
@@ -300,37 +119,41 @@ def post_product_delete():
 @app.route('/store', methods=['GET'])
 def shopping():
     items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
-    return render_template('ProductPage.html', items=items)
+    return render_template('Product.html', items=items)
 
 @app.route('/store', methods=['POST'])
 def post_shopping():
-    user = request.cookies.get('logged_in')
-    user = str(user)
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     item_id = request.form.get("product_id")
-    person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
-    person_id = person[0][0]
     items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
     conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
     conn.commit()
-    return render_template('ProductPage.html', items=items)
+    return render_template('Product.html', items=items)
 
-@app.route('/create', methods=['GET'])
-def product_add():
-    return render_template('admin_create.html')
+@app.route('/create')
+def add():
+    return render_template('create.html')
 
 @app.route('/create', methods=['POST'])
 def post_add():
-    user = request.cookies.get('logged_in')
-    user = str(user)
-    person = conn.execute(text(f"SELECT account_id FROM account where username = '{user}'")).all()
-    person_id = person[0][0]
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     conn.execute(text(f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES ('{person_id}', :title, :description, :image, :color, :size, :quantity, :price)"), request.form)
     conn.commit()
     return redirect("/vendor", code=301)
 
+@app.route('/create_admin', methods=['GET'])
+def adminadd():
+    vendors = conn.execute(text("SELECT account_id, concat(first_name,' ',last_name) as name from account where type = 'vendor'")).all()
+    return render_template('admin_create.html', vendors=vendors)
+
+@app.route('/create_admin', methods=['POST'])
+def post_adminadd():
+    conn.execute(text(f"INSERT INTO products (`account_id`, `title`, `description`, `image`, `color`, `size`, `quantity`, `price`) VALUES (:vendor, :title, :description, :image, :color, :size, :quantity, :price)"), request.form)
+    conn.commit()
+    return redirect("/admin", code=301)
+
 @app.route('/cart', methods=['GET'])
 def cart():
-    print()
     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     cart = conn.execute(text(f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
     total = conn.execute(text(f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}"))
@@ -352,7 +175,60 @@ def post_cart():
     conn.commit()
     return redirect("/order", code=301)
 
+@app.route('/cart/delete/<id>', methods=['GET'])
+def delete_cart(id=0):
+    id=int(id)
+    product_info = conn.execute(text(f"SELECT product_id, title, description, image, color, size, price from products where product_id = '{id}';")).all()
+    return render_template('cart_delete.html', product_info=product_info)
 
+@app.route('/cart/delete', methods=['POST'])
+def post_delete_cart():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    pro_id = request.form.get("product_id")
+    cart_id = conn.execute(text(f"SELECT cart_id from cart where product_id = {pro_id} AND account_id = {person_id}")).all()[0][0]
+    conn.execute(text(f"DELETE FROM cart WHERE (cart_id = '{cart_id}')"), request.form)
+    conn.commit()
+    return redirect("/cart", code=301)
+
+@app.route('/order', methods=['GET'])
+def orders():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    orders = conn.execute(text(f"SELECT order_status, order_date, total FROM orders where account_id = {person_id} ORDER BY order_id DESC LIMIT 1")).all()
+    items = eval(conn.execute(text(f"SELECT items FROM orders ORDER by order_id DESC LIMIT 1")).all()[0][0])
+    item_name = []
+    num = 0
+    for i in items:
+        item_name.append([
+            conn.execute(text(f"SELECT price, concat(size,' ',title) as item from products where product_id = '{i}'")).all()[num][0],
+            conn.execute(text(f"SELECT price, concat(size,' ',title) as item from products where product_id = '{i}'")).all()[num][1]])
+        num += 0
+    print(item_name)
+    return render_template('orders.html', orders=orders, items=item_name)
+
+@app.route('/review', methods=['GET'])
+def reviews():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    orders = conn.execute(text(f"SELECT order_status, order_date, text, total FROM orders where account_id = {person_id}")).all()
+    return render_template('review_check.html', orders=orders)
+
+@app.route('/admin_review', methods=['GET'])
+def admin_reviews():
+    orders = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders")).all()
+    return render_template('admin_review_check.html', orders=orders)
+
+@app.route('/admin_review_edit', methods=['GET'])
+@app.route('/admin_review_edit/<id>', methods=['GET'])
+def admin_reviews_edit(id=0):
+    number = int(id)
+    print("number ", number)
+    order_edit = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders WHERE order_id = {number}")).all()
+    return render_template('admin_review_edit.html', orders=order_edit)
+
+@app.route('/admin_review_edit', methods=['POST'])
+def post_admin_reviews_edit():
+    conn.execute(text(f'UPDATE orders SET order_status = :status WHERE `order_id` = :order_id'), request.form)
+    conn.commit()
+    return redirect('/admin_review', code=301)
 
 if __name__ == '__main__':
     app.run(debug=True)
