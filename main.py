@@ -247,5 +247,16 @@ def post_leave_review():
     conn.commit()
     return redirect('/customer_review', code=301)
 
+@app.route('/review_see', methods=['GET'])
+def review_see():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    reviews = conn.execute(text(f"SELECT review_id, rating, comment, reviews.date as date, text FROM reviews JOIN orders USING(order_id) WHERE orders.account_id = {person_id}"))
+    return render_template('review_see.html', reviews=reviews)
+
+@app.route('/complaint/<id>', methods=['GET'])
+def complaint(id=0):
+    review_id = id
+    return render_template('complaint.html', id=review_id)
+
 if __name__ == '__main__':
     app.run(debug=True)

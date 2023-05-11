@@ -19,15 +19,21 @@
 </style>
 <body>
 <div>
-    <button><a href="/review_see">See reviews</a></button>
+    <button><a href="/customer_review">Back to Orders</a></button>
         <div class="row">
 
     {% for review in reviews %}
         <div class="col-sm-4 ">
           <div class="product-details">
+              <input type="text" name="order_id" value="{{ review['review_id'] }}" style="display:none">
             <p>Items Ordered: {{ review['text']}}</p>
-            <p>Price: ${{ review['total'] }}</p>
-              <button><a href="/leave_review/{{ review['id'] }}">Leave a review</a></button>
+            <p>Comment: {{ review['comment'] }}</p>
+              <p>Rating: {{ review['rating'] }}</p>
+              <p>Date: {{ review['date'] }}</p>
+              {% set rating = review['rating'] | int() %}
+              {% if rating <= 3 %}
+              <button><a href="/complaint/{{ review['review_id'] }}">Make a complaint</a></button>
+              {% endif %}
           </div>
         </div>
     {% endfor %}
