@@ -220,7 +220,6 @@ def admin_reviews():
 @app.route('/admin_review_edit/<id>', methods=['GET'])
 def admin_reviews_edit(id=0):
     number = int(id)
-    print("number ", number)
     order_edit = conn.execute(text(f"SELECT order_id, order_status, order_date, text, total FROM orders WHERE order_id = {number}")).all()
     return render_template('admin_review_edit.html', orders=order_edit)
 
@@ -229,6 +228,24 @@ def post_admin_reviews_edit():
     conn.execute(text(f'UPDATE orders SET order_status = :status WHERE `order_id` = :order_id'), request.form)
     conn.commit()
     return redirect('/admin_review', code=301)
+
+@app.route('/customer_review', methods=['GET'])
+def customer_review():
+    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    can_review = conn.execute(text(f'SELECT order_id as id, text, total FROM orders WHERE order_status = "shipped" AND account_id = {person_id}'))
+    return render_template('customer_review_choose.html', reviews=can_review)
+
+@app.route('/leave_review/<id>', methods=['GET'])
+def leave_review(id=0):
+    id = int(id)
+    return render_template('customer_review.html', id=id)
+
+@app.route('/leave_review', methods=['POST'])
+def post_leave_review():
+    today = str(date.today())
+    conn.execute(text(f"INSERT INTO reviews (`order_id`, `rating`, `comment`, `image`, `date`) VALUES (:order_id, :rating, :comment, :image, '{today}')"), request.form)
+    conn.commit()
+    return redirect('/customer_review', code=301)
 
 if __name__ == '__main__':
     app.run(debug=True)
