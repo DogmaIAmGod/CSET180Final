@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
+<body>
+              <h1 style="text-decoration: underline">THANK YOU FOR YOUR ORDER</h1>
+    {% for order in orders %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 product-details">
+            <p>Order Status: {{ order['order_status']}}</p>
+            <p>Date of Order: {{ order['order_date'] }}</p>
+            <p>Total: ${{ order['total'] }}</p>
+    {% endfor %}
+    <h5>Items:</h5>
+    {% for item in items %}
+    <p>${{ item[0] }} - {{ item[1] }}</p>
+    {% endfor %}
+
+          </div>
+        </div>
+      </div>
+  </body>
+  {% endblock %}
