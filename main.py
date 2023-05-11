@@ -233,7 +233,9 @@ def post_admin_reviews_edit():
 def customer_review():
     person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
     can_review = conn.execute(text(f'SELECT order_id as id, text, total FROM orders WHERE order_status = "shipped" AND account_id = {person_id}'))
-    return render_template('customer_review_choose.html', reviews=can_review)
+    reviews = conn.execute(text(f"SELECT review_id, rating, comment, reviews.date as date, text FROM reviews JOIN orders USING(order_id) WHERE orders.account_id = {person_id}"))
+    complaints = conn.execute(text(f"select complaint.status as status, complaint.comment as comment, complaint_type, complaint.date as date, orders.text as text FROM complaint JOIN reviews USING(review_id) JOIN orders USING(order_id) where orders.account_id = {person_id};"))
+    return render_template('customer_review_choose.html', deliveries=can_review, reviews=reviews, complaints=complaints)
 
 @app.route('/leave_review/<id>', methods=['GET'])
 def leave_review(id=0):
@@ -246,6 +248,28 @@ def post_leave_review():
     conn.execute(text(f"INSERT INTO reviews (`order_id`, `rating`, `comment`, `image`, `date`) VALUES (:order_id, :rating, :comment, :image, '{today}')"), request.form)
     conn.commit()
     return redirect('/customer_review', code=301)
+
+@app.route('/complaint/<id>', methods=['GET'])
+def complaint(id=0):
+    review_id = id
+    return render_template('complaint.html', id=review_id)
+
+@app.route('/complaint', methods=['POST'])
+def post_complaint():
+    conn.execute(text(f"INSERT INTO complaint (`review_id`, `complaint_type`, `date`) VALUES (:review_id, :complaintType, '{date.today()}')"))
+    conn.commit()
+    return redirect('/customer_review', code=301)
+
+@app.route('/admin_complaints', methods=['GET'])
+def admin_complaints():
+    complaints = conn.execute(text(f"select complaint.complaint_id, complaint.status as status, complaint.comment as comment, complaint_type, complaint.date as date, orders.text as text FROM complaint JOIN reviews USING(review_id) JOIN orders USING(order_id);"))
+    return render_template('admin_complaint_check.html', complaints=complaints)
+
+@app.route('/admin_complaint_edit/<id>', methods=['GET'])
+def admin_complaints_edit(id=0):
+    complaint_id = id
+    complaints = conn.execute(text(f"select complaint.status as status, complaint.comment as comment, complaint_type, complaint.date as date, orders.text as text FROM complaint JOIN reviews USING(review_id) JOIN orders USING(order_id) WHERE complaint_id = {complaint_id};"))
+    return render_template('admin_complaint_edit.html', complaints=complaints)
 
 if __name__ == '__main__':
     app.run(debug=True)

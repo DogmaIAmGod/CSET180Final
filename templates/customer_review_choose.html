@@ -19,17 +19,55 @@
 </style>
 <body>
 <div>
-        <div class="row">
-    {% for review in reviews %}
+    <div class="row">
+        {% for delivery in deliveries %}
+        <div class="col-sm-4 ">
+            <div class="product-details">
+                <p>Items Ordered: {{ delivery['text']}}</p>
+                <p>Price: ${{ delivery['total'] }}</p>
+                <button><a href="/leave_review/{{ delivery['id'] }}">Leave a review</a></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div style="width: 100%">
+            <h1>~~~Reviws~~~</h1>
+        </div>
+        {% for review in reviews %}
         <div class="col-sm-4 ">
           <div class="product-details">
-            <p>Items Ordered: {{ review['text']}}</p>
-            <p>Price: ${{ review['total'] }}</p>
-              <button><a href="/leave_review/{{ review['id'] }}">Leave a review</a></button>
+              <input type="text" name="order_id" value="{{ review['review_id'] }}" style="display:none">
+              <p>Items Ordered: {{ review['text']}}</p>
+              <p>Comment: {{ review['comment'] }}</p>
+              <p>Rating: {{ review['rating'] }}</p>
+              <p>Date: {{ review['date'] }}</p>
+              {% set rating = review['rating'] | int() %}
+              {% if rating <= 2 %}
+              <button><a href="/complaint/{{ review['review_id'] }}">Make a complaint</a></button>
+              {% endif %}
           </div>
         </div>
-    {% endfor %}
- </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div style="width: 100%">
+            <h1>~~~Complaints~~~</h1>
+        </div>
+        {% for complaint in complaints %}
+        <div class="col-sm-4 ">
+          <div class="product-details">
+              <p>Status: {{ complaint['status'] }}</p>
+              <p>Comment: {{ complaint['comment'] }}</p>
+              <p>Complaint Type: {{ complaint['complaint_type'] }}</p>
+              <p>Date of Complaint: {{ complaint['date'] }}</p>
+              <p>Items Ordered: {{ complaint['text'] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
 <!--    <h5>Items:</h5>-->

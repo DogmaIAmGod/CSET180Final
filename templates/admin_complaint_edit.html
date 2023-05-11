@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
+<body>
+<div>
+    <form action="/admin_complaint_edit" method="POST">
+        <select id="Status" name="status" required>
+            <option value="">Select a Status</option>
+            <option value="pending">Pending</option>
+            <option value="rejected">Rejected</option>
+            <option value="accepted">Accepted</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+        </select>
+        <div>
+            <input type="submit" value="Change Status" class="btn btn-success btn-lg">
+        </div>
+        <div class="row">
+            {% for complaint in complaints %}
+            <input type="text" name="order_id" value="{{ complaint['order_id'] }}" style="display:none">
+            <div class="col-sm-4 ">
+                <div class="product-details">
+                    <p>Status: {{ complaint['status'] }}</p>
+                    <p>Comment: {{ complaint['comment'] }}</p>
+                    <p>Complaint Type: {{ complaint['complaint_type'] }}</p>
+                    <p>Date of Complaint: {{ complaint['date'] }}</p>
+                    <p>Items Ordered: {{ complaint['text'] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+<!--    <h5>Items:</h5>-->
+<!--    {% for item in items %}-->
+<!--    <p>${{ item[0] }} - {{ item[1] }}</p>-->
+<!--    {% endfor %}-->
+
+
+
+  </body>
+</html>
+    
