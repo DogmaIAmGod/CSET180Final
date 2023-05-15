@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="complaint.css">
+    <title>Customer Complaint</title>
+</head>
+<body>
+    <h1 style="text-align:center">Chat Selection</h1>
+    <a href="/chat_create"><button>Create New Chat</button></a>
+    <form>
+        <p>Jump back into chat</p>
+          <select name="join" id="type" class="input_field" required>
+                    <option value="" disabled selected>No chat selected</option>
+              {% for chat in chats %}
+                    <option style="text-transform: capitalize" value="{{ chat['chat_id'] }}">{{ chat['title'] }}</option>
+              {% endfor %}
+                </select>
+        <input type="submit" value="Jump back into chat" class="input_submit">
+    </form>
+</body>
+</html>

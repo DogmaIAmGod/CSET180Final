@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -23,16 +25,16 @@ DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reviews` (
-  `review_id` int NOT NULL,
+  `review_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
   `rating` enum('1','2','3','4','5') NOT NULL DEFAULT '5',
   `comment` longtext NOT NULL,
   `image` longtext NOT NULL,
-  `date` date NOT NULL,
+  `date` varchar(20) NOT NULL,
   PRIMARY KEY (`review_id`,`order_id`),
   KEY `review_order_idx` (`order_id`),
   CONSTRAINT `review_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7004 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +43,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES (7000,5000,'5','this shit','nope','2019-03-03'),(7003,5001,'1','safasdfasdf','https://i.imgur.com/FeVFa6A.jpeg','2023-05-10');
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-09 12:22:37
+-- Dump completed on 2023-05-15 12:45:51
