@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `scammazon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `scammazon`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scammazon
@@ -26,13 +28,12 @@ CREATE TABLE `complaint` (
   `complaint_id` int NOT NULL,
   `review_id` int NOT NULL,
   `status` enum('pending','rejected','accepted','processing','completed') NOT NULL DEFAULT 'pending',
-  `title` longtext NOT NULL,
-  `comment` longtext NOT NULL,
+  `comment` longtext,
   `complaint_type` enum('return','refund','warranty') NOT NULL DEFAULT 'return',
   `date` date NOT NULL,
   PRIMARY KEY (`complaint_id`,`review_id`),
   KEY `compaint_review_idx` (`review_id`),
-  CONSTRAINT `compaint_review` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`review_id`)
+  CONSTRAINT `thename` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`review_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,6 +43,7 @@ CREATE TABLE `complaint` (
 
 LOCK TABLES `complaint` WRITE;
 /*!40000 ALTER TABLE `complaint` DISABLE KEYS */;
+INSERT INTO `complaint` VALUES (9000,7000,'pending',NULL,'return','2019-01-01');
 /*!40000 ALTER TABLE `complaint` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-09 12:22:37
+-- Dump completed on 2023-05-15 12:45:52

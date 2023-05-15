@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+
+<section class="vh-100 bg-danger-subtle">
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+  <div class="container h-50">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <h2 class="text-uppercase text-center mb-5">Create Chat</h2>
+              {% if error %}
+              <h2 style="text-align: center">{{ error }}</h2>
+              {% endif %}
+              {% if success %}
+              <h2 style="text-align: center">{{ success }}</h2>
+              {% endif %}
+            <form action="/chat_create" method="POST">
+              <div class="form-outline mb-4">
+                <input type="text" id="form3Example2cg" class="form-control form-control-lg" placeholder="Title" name="title" required/>
+              </div>
+
+              <form>
+                <p>Select Who To Message</p>
+                <select name="p2" id="type" class="input_field" required>
+                  <option value="" disabled selected>No chat selected</option>
+                  {% for who in whos %}
+                  <option style="text-transform: capitalize" value="{{ who['account_id'] }}">{{ who['type'] }}: {{ who['name'] }}</option>
+                  {% endfor %}
+                </select>
+
+              <div class="d-flex justify-content-center">
+                <input type="submit" value="Create Chat" class="input_submit btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock %}

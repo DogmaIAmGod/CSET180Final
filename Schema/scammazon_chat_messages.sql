@@ -18,33 +18,32 @@ USE `scammazon`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `chat`
+-- Table structure for table `chat_messages`
 --
 
-DROP TABLE IF EXISTS `chat`;
+DROP TABLE IF EXISTS `chat_messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chat` (
-  `chat_id` int NOT NULL AUTO_INCREMENT,
-  `participant1` int NOT NULL,
-  `participant2` int NOT NULL,
-  `title` longtext NOT NULL,
-  PRIMARY KEY (`chat_id`,`participant1`,`participant2`),
-  KEY `chat_account_idx` (`participant1`),
-  KEY `second_account_idx` (`participant2`),
-  CONSTRAINT `chat_account` FOREIGN KEY (`participant1`) REFERENCES `account` (`account_id`),
-  CONSTRAINT `second_account` FOREIGN KEY (`participant2`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8003 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `chat_messages` (
+  `message_id` int NOT NULL AUTO_INCREMENT,
+  `account_id` int NOT NULL,
+  `chat_id` int NOT NULL,
+  `text` longtext NOT NULL,
+  PRIMARY KEY (`message_id`,`account_id`),
+  KEY `id_chat_idx` (`chat_id`),
+  KEY `id_account_idx` (`account_id`),
+  CONSTRAINT `id_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`),
+  CONSTRAINT `id_chat` FOREIGN KEY (`chat_id`) REFERENCES `chat` (`chat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chat`
+-- Dumping data for table `chat_messages`
 --
 
-LOCK TABLES `chat` WRITE;
-/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
-INSERT INTO `chat` VALUES (8000,30,1,'Product damanged');
-/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+LOCK TABLES `chat_messages` WRITE;
+/*!40000 ALTER TABLE `chat_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `chat_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
