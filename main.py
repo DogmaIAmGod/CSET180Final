@@ -200,7 +200,7 @@ def cart():
         f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
     total = conn.execute(text(
         f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}"))
-    return render_template('cart.html', cart=cart, total=total)
+    return render_template('cartUpdate.html', cart=cart, total=total)
 
 
 @app.route('/cart', methods=['POST'])
@@ -357,11 +357,15 @@ def admin_complaints_edit(id=0):
         f"select complaint.status as status, complaint.comment as comment, complaint_type, complaint.date as date, orders.text as text FROM complaint JOIN reviews USING(review_id) JOIN orders USING(order_id) WHERE complaint_id = {complaint_id};"))
     return render_template('admin_complaint_edit.html', complaints=complaints)
 
+
 @app.route('/customer_chats', methods=['GET'])
 def chats():
-    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    open_chats = conn.execute(text(f"select chat_id, title from chat where {person_id} = participant1 or {person_id} = participant2 "))
+    person_id = conn.execute(
+        text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    open_chats = conn.execute(
+        text(f"select chat_id, title from chat where {person_id} = participant1 or {person_id} = participant2 "))
     return render_template('chats.html', chats=open_chats)
+
 
 @app.route('/customer_chats', methods=['POST'])
 def post_chats():
@@ -369,39 +373,54 @@ def post_chats():
     print(id)
     return redirect(f'/chatting/{id}', code=301)
 
+
 @app.route('/chat_create', methods=['GET'])
 def chat_create():
-    who_to = conn.execute(text(f"select account_id, concat(first_name, ' ', last_name) as name, type from account where type = 'admin' or type = 'vendor'"))
+    who_to = conn.execute(text(
+        f"select account_id, concat(first_name, ' ', last_name) as name, type from account where type = 'admin' or type = 'vendor'"))
     return render_template('chat_create.html', whos=who_to)
 
 
 @app.route('/chat_create', methods=['POST'])
 def post_chat_create():
-    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    conn.execute(text(f"INSERT INTO chat (`participant1`, `participant2`, `title`) VALUES ('{person_id}', :p2, :title);"), request.form)
+    person_id = conn.execute(
+        text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    conn.execute(
+        text(f"INSERT INTO chat (`participant1`, `participant2`, `title`) VALUES ('{person_id}', :p2, :title);"),
+        request.form)
     conn.commit()
     # return render_template('chat_create.html')
     return redirect('/customer_chats', code=301)
 
+
 @app.route('/chatting/<id>', methods=['GET'])
 def chatting(id=0):
-    id= int(id)
-    previous_messages = conn.execute(text(f"SELECT concat(first_name,' ',last_name) as name, text from chat_messages join account using(account_id) where chat_id = {id}"))
+    id = int(id)
+    previous_messages = conn.execute(text(
+        f"SELECT concat(first_name,' ',last_name) as name, text from chat_messages join account using(account_id) where chat_id = {id}"))
     return render_template('chatting.html', messages=previous_messages, id=id)
+
 
 @app.route('/chatting', methods=['POST'])
 def post_chatting():
     id = request.form.get("chat_id")
-    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    conn.execute(text(f"INSERT INTO chat_messages (`account_id`, `chat_id`, `text`) VALUES ('{person_id}', :chat_id, :text)"), request.form)
+    person_id = conn.execute(
+        text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    conn.execute(
+        text(f"INSERT INTO chat_messages (`account_id`, `chat_id`, `text`) VALUES ('{person_id}', :chat_id, :text)"),
+        request.form)
     conn.commit()
     return redirect(f'/chatting/{id}', code=301)
 
+
 @app.route('/a_v_chats', methods=['GET'])
 def a_v_chats():
-    person_id = conn.execute(text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    open_chats = conn.execute(text(f"select chat_id, title from chat where {person_id} = participant1 or {person_id} = participant2 "))
+    person_id = conn.execute(
+        text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    open_chats = conn.execute(
+        text(f"select chat_id, title from chat where {person_id} = participant1 or {person_id} = participant2 "))
     return render_template('A_V_chats.html', chats=open_chats)
+
 
 @app.route('/a_v_chats', methods=['POST'])
 def post_a_v_chats():
@@ -409,6 +428,6 @@ def post_a_v_chats():
     print(id)
     return redirect(f'/chatting/{id}', code=301)
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-# type = conn.execute(text(f"SELECT type FROM account where username = '{maybe_user}'")).all()[0][0]
