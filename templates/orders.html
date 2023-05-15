@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="./ProductCSS.css">
+</head>
+<style>
+  p {
+  text-transform:capitalize
+  }
+  img {
+  height: 250px;
+  width: 100px;
+  }
+</style>
+<body>
+              <h1 style="text-decoration: underline">THANK YOU FOR YOUR ORDER</h1>
+    {% for order in orders %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 product-details">
+            <p>Order Status: {{ order['order_status']}}</p>
+            <p>Date of Order: {{ order['order_date'] }}</p>
+            <p>Total: ${{ order['total'] }}</p>
+    {% endfor %}
+    <h5>Items:</h5>
+    {% for item in items %}
+    <p>${{ item[0] }} - {{ item[1] }}</p>
+    {% endfor %}
+
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+    

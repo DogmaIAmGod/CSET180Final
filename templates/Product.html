@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./ProductCSS.css">
+</head>
+<body class="album py-5 ">
+  <div class="container-fluid">
+
+      <div class="row">
+        {% for item in items %}
+            <form action="/store" method="POST">
+          <div class="d-flex w-100 p-4 mb-4">
+            <div class="card shadow-sm h-100">
+              <img src="{{ item['image'] }}" class="card-img-top" alt="Product Image 1" referrerpolicy="no-referrer">
+              <div class="card-body">
+                <input type="text" name="product_id" value="{{ item['product_id'] }}" style="display:none">
+                <h2 class="card-title">{{ item['title']}}</h2>
+                <p class="card-text">{{ item['description'] }}</p>
+                <p class="card-text">Color: {{ item['color'] }}</p>
+                <p class="card-text">Size: {{ item['size'] }}</p>
+                <p class="card-text font-weight-bold">Price: ${{ item['price'] }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <input type="submit" value="Add to Cart" class="btn btn-sm btn-outline-secondary">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                  </form>
+        {% endfor %}
+      </div>
+
+    <a href="/cart"><button class="btn btn-secondary">Go to Cart</button></a>
+  </div>
+  <style>
+
+    .album {
+      background-image: linear-gradient(to bottom right, purple, gold);
+    }
+    .card {
+      border: none;
+    }
+    
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .card-title {
+      font-size: 1.2rem;
+    }
+    
+    .btn-outline-secondary {
+      border-color: #6c757d;
+      color: #6c757d;
+    }
+    
+    .btn-outline-secondary:hover {
+      background-color: #6c757d;
+      color: #fff;
+    }
+    
+    /* new styles */
+    .container-fluid {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -1rem;
+    }
+    
+    .col-lg-4 {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+      padding: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .col-lg-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    p {
+      text-transform: capitalize;
+    }
+  
+  </style>
+  
+
+</body>
+
+
+
+</html>
+
+

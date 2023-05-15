@@ -1,0 +1,61 @@
+<style>
+    .body{
+        margin: auto;
+    }
+    .input_field {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .input_submit {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .input_submit:hover {
+      background-color: #45a049;
+    }
+</style>
+
+{% extends "base.html" %}
+{% block body %}
+    <div class="body">
+        <h1>Product Creation</h1>
+        <p style="text-align:center;"><i>Input information for new product</i></p>
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Title" class="input_field">
+            <input type="text" name="description" placeholder="Description" class="input_field">
+            <input type="text" name="image" placeholder="Link to Image" class="input_field">
+            <select name="color" class="input_field" required>
+                <option value="" disabled selected>Color</option>
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="purple">Purple</option>
+            </select>
+            <select name="size" class="input_field" required>
+                <option value="" disabled selected>Size</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="extra large">Extra Large</option>
+            </select>
+            <input type="text" name="quantity" placeholder="Quantity" class="input_field">
+            <input type="text" name="price" placeholder="Price w/o '$'" class="input_field">
+            <input type="submit" value="Submit" class="input_submit">
+        </form>
+    </div>
+{% endblock %}
