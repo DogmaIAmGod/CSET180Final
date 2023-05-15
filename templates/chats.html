@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+    <a href="/landing"><button>Back to landing page</button></a>
+        <h1 style="text-align:center">Chat Selection</h1>
+        <a href="/chat_create"><button>Create New Chat</button></a>
+        <form action="/customer_chats" method="POST">
+            <p>Jump back into chat</p>
+              <select name="chats" id="type" class="input_field" required>
+                        <option value="" disabled selected>No chat selected</option>
+                  {% for chat in chats %}
+                        <option style="text-transform: capitalize" value="{{ chat['chat_id'] }}">{{ chat['title'] }}</option>
+                  {% endfor %}
+                    </select>
+            <input type="submit" value="Jump back into chat" class="input_submit">
+        </form>
+    </body>
+    
+    
