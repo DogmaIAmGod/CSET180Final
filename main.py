@@ -200,7 +200,7 @@ def cart():
         f"SELECT cart.product_id, title, description, image, color, size, price from products join cart using(product_id) where products.product_id = cart.product_id AND cart.account_id = {person_id}"))
     total = conn.execute(text(
         f"SELECT SUM(price) as total from cart join products using(product_id) where cart.account_id = {person_id}"))
-    return render_template('cart.html', cart=cart, total=total)
+    return render_template('cartUpdate.html', cart=cart, total=total)
 
 
 @app.route('/cart', methods=['POST'])
