@@ -151,13 +151,15 @@ def shopping():
 
 @app.route('/store', methods=['POST'])
 def post_shopping():
-    person_id = conn.execute(
-        text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
-    item_id = request.form.get("product_id")
-    items = conn.execute(text("SELECT product_id, title, description, image, color, size, price FROM products")).all()
-    conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
-    conn.commit()
-    return render_template('Product.html', items=items)
+    # person_id = conn.execute(
+    #     text(f"SELECT account_id FROM account where username = '{str(request.cookies.get('logged_in'))}'")).all()[0][0]
+    # item_id = request.form.get("product_id")
+    # conn.execute(text(f"INSERT INTO cart (`product_id`, `account_id`)VALUES('{item_id}', '{person_id}')"), request.form)
+    # conn.commit()
+    person_id = conn.execute(text(f"select account_id from account where username = '{request.cookies.get('logged_in')}'")).all()
+    cookie = request.cookies.get('logged_in')
+    print(cookie)
+    return redirect('/store', code=301)
 
 
 @app.route('/create')
