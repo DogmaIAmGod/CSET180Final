@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 from datetime import date
 
 app = Flask(__name__)
-conn_str = "mysql://root:.@localhost/scammazon"
+conn_str = "mysql://root:jtdStudent2023@localhost/scammazon"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
