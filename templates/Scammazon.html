@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<style>
+<!-- <style>
     header {
     color: white;
     background-color: green;
@@ -20,30 +20,41 @@
         width: 10%;
         text-align: center;
     }
-</style>
-    <header>
-        <h1>Scammazon</h1>
-    </header>
-    <section>
+</style> -->
+    
+<section class="vh-100">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3 bg-success-subtle">
+      <div class="container h-50">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h3 class="text-uppercase text-center mb-5 fw-semibold">Account Details</h3>
         {% for use in user %}
-            <h3 class="titles">Account</h3>
-            <div class="info">
+            
+            <div class="info bg-body-tertiary rounded p-4">
                 <div>
-                    <label>Account ID: {{ use['id'] }}</label>
+                    <label class="fw-semibold">Account ID: {{ use['id'] }}</label>
                 </div>
                 <div>
-                    <label>Name: {{ use['name'] }}</label>
+                    <label class="fw-semibold">Name: {{ use['name'] }}</label>
                 </div>
                 <div>
-                    <label>Email: {{ use['email'] }} </label>
+                    <label class="fw-semibold">Email: {{ use['email'] }} </label>
                 </div>
                 <div>
-                    <label>Username: {{ use['username'] }}</label>
+                    <label class="fw-semibold">Username: {{ use['username'] }}</label>
                 </div>
                 <div>
-                    <label>Password: {{ use['password'] }}</label>
+                    <label class="fw-semibold">Password: {{ use['password'] }}</label>
                 </div>
             </div>
         {% endfor %}
-    </section>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 {% endblock %}
