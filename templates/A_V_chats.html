@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="complaint.css">
-    <title>Chats</title>
-</head>
+{% extends "base.html" %}
+{% block body %}
 <body>
 <a href="/landing"><button>Back to landing page</button></a>
     <h1 style="text-align:center">Chat Selection</h1>
@@ -21,4 +14,4 @@
         <input type="submit" value="Jump back into chat" class="input_submit">
     </form>
 </body>
-</html>
+{% endblock %}
